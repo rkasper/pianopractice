@@ -1,6 +1,5 @@
 import unittest
 
-
 # I want this tool to tell me which old exercise to practice, and the sequence of keys to practice them in.
 from pianopractice import PianoPractice
 
@@ -37,7 +36,7 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(exercises_to_practice[2].startswith("Blues School"))
 
     def test_rand_list_of_keys(self):
-        keys:[str] = PianoPractice.keys_to_practice()
+        keys: [str] = PianoPractice.keys_to_practice()
         self.assertEqual(12, len(keys))
         self.assertIn("A", keys)
         self.assertIn("C#/Db", keys)
