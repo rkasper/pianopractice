@@ -10,6 +10,9 @@ class PianoPractice:
         self.group = group
         self.exercise = exercise
 
+    def __repr__(self):
+        return self.group + ': ' + self.exercise
+
     @staticmethod
     def exercises_to_practice() -> [str]:
         scales: [str] = [PianoPractice("Scale", "Major"), PianoPractice("Scale", "Blues (minor)"),
