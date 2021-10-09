@@ -22,6 +22,9 @@ class MyTestCase(unittest.TestCase):
                 group.startswith("Scale") or group.startswith("Hanon") or group.startswith(
                     "Blues School"))
 
+            exercise :str = oldExercise.exercise
+            self.assertTrue(len(exercise) > 0)
+
     # TODO This is a bad test: it is nondeterministic - it might fail randomly. Fix that.
     def test_exerciseListIsRandom(self):
         # It's pretty much impossible for two consecutive sets of exercises to be the same. And if they are the same,
