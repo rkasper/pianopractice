@@ -15,10 +15,10 @@ Simply answers these important questions:
 - And you'll have to set an environment variable to tell clever-cloud.com where to find the Flask app. In our case, it
 will look like this:
 
-`CC_PYTHON_MODULE="app:app"`
+`CC_PYTHON_MODULE="flask-app:app"`
 
-- If we renamed app.py to something else, then we'd do this instead:
+- And we like to run tests in the deployment environment. In clever-cloud.com, we do this to run tests:
 
-`CC_PYTHON_MODULE="newfilename:app"`
+`CC_POST_BUILD_HOOK="python tests.py"`
 
 That is all. Enjoy!

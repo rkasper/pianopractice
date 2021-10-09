@@ -17,12 +17,12 @@ class MyTestCase(unittest.TestCase):
         # The old exercises or scales, Hanon, or Blues School.
         exercises_to_practice = PianoPractice.exercises_to_practice()
         for oldExercise in exercises_to_practice:
-            group : str = oldExercise.group
+            group: str = oldExercise.group
             self.assertTrue(
                 group.startswith("Scale") or group.startswith("Hanon") or group.startswith(
                     "Blues School"))
 
-            exercise :str = oldExercise.exercise
+            exercise: str = oldExercise.exercise
             self.assertTrue(len(exercise) > 0)
 
     # TODO This is a bad test: it is nondeterministic - it might fail randomly. Fix that.
