@@ -3,24 +3,36 @@ import random
 
 
 class PianoPractice:
+    group : str
+    exercise : str
+
+    def __init__(self, group, exercise):
+        self.group = group
+        self.exercise = exercise
+
     @staticmethod
     def exercises_to_practice() -> [str]:
-        scales: [str] = ["Scale: Major", "Scale: Blues (minor)", "Scale: Blues (major)", "Scale: Mixolydian (dom7)"]
-        hanon: [str] = ["Hanon: 1", "Hanon: 2", "Hanon: 3", "Hanon: 4", "Hanon: 5",
-                        "Hanon: 6", "Hanon: 7", "Hanon: 8", "Hanon: 9", "Hanon: 10",
-                        "Hanon: 11", "Hanon: 12", "Hanon: 13", "Hanon: 14", "Hanon: 15",
-                        "Hanon: 16", "Hanon: 17", "Hanon: 18", "Hanon: 19", "Hanon: 20",
-                        "Hanon: 21", "Hanon: 22", "Hanon: 23", "Hanon: 24", "Hanon: 25",
-                        "Hanon: 26", "Hanon: 27", "Hanon: 28", "Hanon: 29", "Hanon: 30"]
-        blues_school: [str] = ["Blues School: Major Blues 12-Bar Form & Harmony, The First Lesson",
-                               "Blues School: Major Blues 12-Bar Form & Harmony, Variation #1",
-                               "Blues School: Major Blues 12-Bar Form & Harmony, Variation #2",
-                               "Blues School: Major Blues 12-Bar Form & Harmony, Variation #3",
-                               "Blues School: Major Blues 12-Bar Form & Harmony, Variation #4",
-                               "Blues School: Major Blues 12-Bar Form & Harmony, Variation #5",
-                               "Blues School: Major Blues 12-Bar Form & Harmony, Variation #6",
-                               "Blues School: Major Blues 12-Bar Form & Harmony, Variation #7",
-                               "Blues School: Major Blues 12-Bar Form & Harmony, Variation #8"]
+        scales: [str] = [PianoPractice("Scale", "Major"), PianoPractice("Scale", "Blues (minor)"),
+                         PianoPractice("Scale", "Blues (major)"), PianoPractice("Scale", "Mixolydian (dom7)")]
+        hanon: [str] = [PianoPractice("Hanon", "1"), PianoPractice("Hanon", "2"), PianoPractice("Hanon", "3"),
+                        PianoPractice("Hanon", "4"), PianoPractice("Hanon", "5"), PianoPractice("Hanon", "6"),
+                        PianoPractice("Hanon", "7"), PianoPractice("Hanon", "8"), PianoPractice("Hanon", "9"),
+                        PianoPractice("Hanon", "10"), PianoPractice("Hanon", "11"), PianoPractice("Hanon", "12"),
+                        PianoPractice("Hanon", "13"), PianoPractice("Hanon", "14"), PianoPractice("Hanon", "15"),
+                        PianoPractice("Hanon", "16"), PianoPractice("Hanon", "17"), PianoPractice("Hanon", "18"),
+                        PianoPractice("Hanon", "19"), PianoPractice("Hanon", "20"), PianoPractice("Hanon", "21"),
+                        PianoPractice("Hanon", "22"), PianoPractice("Hanon", "23"), PianoPractice("Hanon", "24"),
+                        PianoPractice("Hanon", "25"), PianoPractice("Hanon", "26"), PianoPractice("Hanon", "27"),
+                        PianoPractice("Hanon", "28"), PianoPractice("Hanon", "29"), PianoPractice("Hanon", "30")]
+        blues_school: [str] = [PianoPractice("Blues School", "Major Blues 12-Bar Form & Harmony, The First Lesson"),
+                               PianoPractice("Blues School", "Major Blues 12-Bar Form & Harmony, Variation #1"),
+                               PianoPractice("Blues School", "Major Blues 12-Bar Form & Harmony, Variation #2"),
+                               PianoPractice("Blues School", "Major Blues 12-Bar Form & Harmony, Variation #3"),
+                               PianoPractice("Blues School", "Major Blues 12-Bar Form & Harmony, Variation #4"),
+                               PianoPractice("Blues School", "Major Blues 12-Bar Form & Harmony, Variation #5"),
+                               PianoPractice("Blues School", "Major Blues 12-Bar Form & Harmony, Variation #6"),
+                               PianoPractice("Blues School", "Major Blues 12-Bar Form & Harmony, Variation #7"),
+                               PianoPractice("Blues School", "Major Blues 12-Bar Form & Harmony, Variation #8")]
         return [random.choice(scales), random.choice(hanon), random.choice(blues_school)]
 
     @staticmethod

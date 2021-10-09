@@ -17,8 +17,9 @@ class MyTestCase(unittest.TestCase):
         # The old exercises or scales, Hanon, or Blues School.
         exercises_to_practice = PianoPractice.exercises_to_practice()
         for oldExercise in exercises_to_practice:
+            group : str = oldExercise.group
             self.assertTrue(
-                oldExercise.startswith("Scale") or oldExercise.startswith("Hanon") or oldExercise.startswith(
+                group.startswith("Scale") or group.startswith("Hanon") or group.startswith(
                     "Blues School"))
 
     # TODO This is a bad test: it is nondeterministic - it might fail randomly. Fix that.
@@ -31,9 +32,9 @@ class MyTestCase(unittest.TestCase):
 
     def test_thereIsExactlyOneOfEachTypeOfExercise(self):
         exercises_to_practice = PianoPractice.exercises_to_practice()
-        self.assertTrue(exercises_to_practice[0].startswith("Scale"))
-        self.assertTrue(exercises_to_practice[1].startswith("Hanon"))
-        self.assertTrue(exercises_to_practice[2].startswith("Blues School"))
+        self.assertTrue(exercises_to_practice[0].group.startswith("Scale"))
+        self.assertTrue(exercises_to_practice[1].group.startswith("Hanon"))
+        self.assertTrue(exercises_to_practice[2].group.startswith("Blues School"))
 
     def test_rand_list_of_keys(self):
         keys: [str] = PianoPractice.keys_to_practice()
