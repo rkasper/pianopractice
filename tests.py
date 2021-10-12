@@ -24,7 +24,7 @@ class MyTestCase(unittest.TestCase):
                 group.startswith("Scale") or group.startswith("Hanon") or group.startswith(
                     "Blues School"))
 
-            exercise: str = oldExercise.exercise
+            exercise: str = oldExercise.name
             self.assertTrue(len(exercise) > 0)
 
             self.assertTrue(validators.url(oldExercise.url))

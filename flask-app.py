@@ -11,7 +11,7 @@ def home_page():  # put application's code here
     page += '<h2>Practice these exercises:</h2>'
     page += '<ul>'
     for exercise in PianoPractice.exercises_to_practice():
-        page += '<li><a href="' + exercise.url + '">' + exercise.group + ': ' + exercise.exercise + '</a></li>'
+        page += '<li><a href="' + exercise.url + '">' + exercise.group + ': ' + exercise.name + '</a></li>'
     page += '</ul>'
     page += '<h2>Practice the 12 keys in this sequence:</h2>'
     page += '<ul><li>'
