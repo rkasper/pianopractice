@@ -1,6 +1,8 @@
 import unittest
 
 # I want this tool to tell me which old exercise to practice, and the sequence of keys to practice them in.
+import validators as validators
+
 from pianopractice import PianoPractice
 
 
@@ -24,6 +26,8 @@ class MyTestCase(unittest.TestCase):
 
             exercise: str = oldExercise.exercise
             self.assertTrue(len(exercise) > 0)
+
+            self.assertTrue(validators.url(oldExercise.url))
 
     # TODO This is a bad test: it is nondeterministic - it might fail randomly. Fix that.
     def test_exerciseListIsRandom(self):
