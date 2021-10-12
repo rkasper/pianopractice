@@ -115,3 +115,6 @@ dmypy.json
 
 .idea
 *.iml
+
+# Mac stuff
+.DS_Store
