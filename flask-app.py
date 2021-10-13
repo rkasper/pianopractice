@@ -20,7 +20,10 @@ def home_page():  # put application's code here
     page += '<h2>In this sequence of keys:</h2>'
     page += '<ul><li>'
     page += '<li>'.join(map(str, PianoPractice.keys_to_practice()))
-    page += '</ul></body></html>'
+    page += '</ul>'
+    # Add analytics here. Here's an example from a different website:
+    # page += '<!-- Cloudflare Web Analytics --><script defer src=''https://static.cloudflareinsights.com/beacon.min.js'' data-cf-beacon=''{"token": "c3c2deb5817c4baaa6d9393b4c69199a"}''></script><!-- End Cloudflare Web Analytics -->'
+    page += '</body></html>'
     return page
 
 
