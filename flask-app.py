@@ -21,8 +21,7 @@ def home_page():  # put application's code here
     page += '<ul><li>'
     page += '<li>'.join(map(str, PianoPractice.keys_to_practice()))
     page += '</ul>'
-    # Add analytics here. Here's an example from a different website:
-    # page += '<!-- Cloudflare Web Analytics --><script defer src=''https://static.cloudflareinsights.com/beacon.min.js'' data-cf-beacon=''{"token": "c3c2deb5817c4baaa6d9393b4c69199a"}''></script><!-- End Cloudflare Web Analytics -->'
+    page += '<!-- Cloudflare Web Analytics --><script defer src=''https://static.cloudflareinsights.com/beacon.min.js'' data-cf-beacon=''{"token": "bf796406d55645b684608b287473bb56"}''></script><!-- End Cloudflare Web Analytics -->'
     page += '</body></html>'
     return page
 
