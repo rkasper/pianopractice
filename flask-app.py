@@ -7,7 +7,18 @@ app = Flask(__name__)
 
 @app.route('/')
 def home_page():  # put application's code here
-    page = '<!DOCTYPE html><html><head><title>PianoPlay.app</title></head>'
+    page = '<!DOCTYPE html><html><head>'
+    page += '<title>PianoPlay.app</title>'
+    page += '<!-- Global site tag (gtag.js) - Google Analytics -->' \
+'<script async src="https://www.googletagmanager.com/gtag/js?id=G-7FF50GQ34L"></script>' \
+'<script>' \
+'  window.dataLayer = window.dataLayer || [];' \
+'  function gtag(){dataLayer.push(arguments);}' \
+'  gtag(''js'', new Date());' \
+'' \
+'  gtag(''config'', ''G-7FF50GQ34L'');'\
+'</script>'
+    page += '</head>'
     page += '<body><h1>PianoPlay</h1>'
     page += '<p>You can become the pianist you''ve always wanted to be!</p>'
     page += '<p>Practice your piano exercises just right: the right exercises at the right times; just the right amount of exercise to keep it fun, keep you advancing, and leave you time for the fun stuff on piano&mdash;playing songs and making music!</p>'
@@ -21,7 +32,6 @@ def home_page():  # put application's code here
     page += '<ul><li>'
     page += '<li>'.join(map(str, PianoPractice.keys_to_practice()))
     page += '</ul>'
-    page += '<!-- Cloudflare Web Analytics --><script defer src=''https://static.cloudflareinsights.com/beacon.min.js'' data-cf-beacon=''{"token": "bf796406d55645b684608b287473bb56"}''></script><!-- End Cloudflare Web Analytics -->'
     page += '</body></html>'
     return page
 
