@@ -32,6 +32,7 @@ def home_page():  # put application's code here
     page += '<ul><li>'
     page += '<li>'.join(map(str, PianoPractice.keys_to_practice()))
     page += '</ul>'
+    page += '<button onClick="window.location.reload();">Randomize!</button>'
     page += '</body></html>'
     return page
 
