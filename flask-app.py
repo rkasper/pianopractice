@@ -14,9 +14,9 @@ def home_page():  # put application's code here
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag(''js'', new Date());
+  gtag('js', new Date());
 
-  gtag(''config'', ''G-7FF50GQ34L'');
+  gtag('config', 'G-7FF50GQ34L');
 </script>
 </head>
 <body><h1>PianoPlay</h1>
