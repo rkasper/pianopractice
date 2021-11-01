@@ -33,6 +33,7 @@ def home_page():  # put application's code here
     page += '<li>'.join(map(str, PianoPractice.keys_to_practice()))
     page += '''</ul>
 <button onClick="window.location.reload();">Randomize!</button>
+<br/><br/><br/><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title"><br />PianoPlay.app</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://kasperowski.com/" property="cc:attributionName" rel="cc:attributionURL">Richard Kasperowski</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 </body></html>'''
     return page
 
