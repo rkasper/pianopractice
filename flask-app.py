@@ -20,7 +20,7 @@ def home_page():  # put application's code here
 </script>
 </head>
 <body><h1>PianoPlay</h1>
-<p>You can become the pianist you''ve always wanted to be!</p>
+<p>You can become the pianist you've always wanted to be!</p>
 <p>Practice your piano exercises just right: the right exercises at the right times; just the right amount of exercise to keep it fun, keep you advancing, and leave you time for the fun stuff on piano&mdash;playing songs and making music!</p>
 <h2>Practice these exercises:</h2>
 <ul>'''
