@@ -1,0 +1,326 @@
+.piano_mb {
+	background-color: #28292D;
+	/*background-image: url('../image/piano-img.jpg');*/
+	background-size: 40% 100%;
+	background-position: right top;
+	background-repeat: no-repeat;
+	padding-top: 35px;
+	padding-bottom: 162px;
+	position: relative;
+}
+.piano_mb:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 40%;
+	height: 100%;
+	background-image: url('../image/piano-img.jpg');
+	background-position: right top;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.logo-image {
+	width: auto;
+}
+.piano_mb_tex-col {
+	margin-top: 135px;
+}
+.piano_mb_tex-col h1 {
+	font-family: Montserrat;
+	font-weight: 700;
+	font-size: 17px;
+	line-height: 33px;
+	letter-spacing: 0.21em;
+	color: #FFFFFF;
+	text-transform: uppercase;
+}
+.piano_mb_title1 {
+	font-family: Montserrat;
+	font-weight: 900;
+	font-size: 50px;
+	line-height: 60px;
+	letter-spacing: 0.02em;
+	color: #FFFFFF;
+	text-transform: capitalize;
+}
+.piano_mb-regular-text {
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 26px;
+	letter-spacing: 0.02em;
+	color: #FFFFFF;
+}
+.piano_exercises {
+	padding-top: 60px;
+	padding-bottom: 60px;
+}
+.title-h2 {
+	font-family: Montserrat;
+	font-weight: 900;
+	font-size: 36px;
+	line-height: 36px;
+	letter-spacing: 0.02em;
+	color: #FFFFFF;
+	text-transform: capitalize;
+	color: #282828;
+}
+.exercises-row {
+	justify-content: center;
+	margin-top: 60px;
+}
+.exercises-row1 {
+	width: 970px;
+	justify-content: space-between;
+	list-style-type: none;
+	margin-bottom: 0;
+	padding-left: 0;
+}
+.exercises-row1 li {
+	width: min-content;
+}
+.exercises-row1 li img {
+	margin-bottom: 33px;
+}
+.exercises-row1 li a,
+.exercises-row1 li {
+	text-align: center;
+	font-family: Montserrat;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 26px;
+	letter-spacing: 0.02em;
+	color: #95AB68;
+	text-decoration: underline;
+	transition: .2s all;
+}
+.exercises-row1 li a:hover {
+	color: #28292D;
+}
+.piano_keys {
+	background: #95AB68;
+	padding-top: 39px;
+	padding-bottom: 50px;
+}
+.piano_randomize-btn {
+	padding-top: 32px;
+	padding-bottom: 45px;
+}
+.piano_keys .container-md h2 {
+	font-family: Montserrat;
+	font-weight: 900;
+	font-size: 36px;
+	line-height: 36px;
+	letter-spacing: 0.02em;
+	color: #FFFFFF;
+	color: #282828;
+}
+.piano_keys-cols {
+	list-style-type: none;
+	margin-top: 42px;
+	margin-bottom: 0;
+	justify-content: center;
+	padding-left: 0;
+}
+.piano_keys-cols li {
+	width: 109px;
+	height: 101px;
+	background: #E6DED1;
+	border: 3px solid #E6DED1;
+	border-radius: 10px;
+	margin-left: 3.5px;
+	margin-right: 3.5px;
+	box-shadow: 5px 6px 5px rgba(0, 0, 0, 0.15);
+	padding-left: 5px;
+	padding-right: 5px;
+	font-family: Montserrat;
+	font-weight: 800;
+	font-size: 18px;
+	line-height: 28px;
+	display: flex;
+	align-items: center;
+	letter-spacing: 0.02em;
+	color: #28292D;
+	justify-content: center;
+}
+.randomize-btn {
+	font-family: Montserrat;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 34px;
+	letter-spacing: 0.1em;
+	color: #E6DED1;
+	text-transform: uppercase;
+	background: #44552A;
+	border-radius: 10px;
+	padding: 18px 38px 17px;
+	border: none;
+	margin: 0 auto;
+	display: block;
+}
+.randomize-btn:hover {
+	background: #28292D;
+}
+.footer {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	font-family: Montserrat;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 24px;
+	letter-spacing: 0.02em;
+	color: #000000;
+}
+.footer .footer-img a {
+	margin-bottom: 15px;
+	display: inline-block;
+}
+.footer .footer-text a {
+	text-decoration: underline;
+	color: #000000;
+}
+
+
+
+/* -- MEDIA QUERIES - RESPONSIVE --*/
+@media screen and (min-width: 1600px) {}
+@media screen and (min-width: 1440px) and (max-width: 1599px) {}
+@media screen and (min-width: 1200px) and (max-width: 1439px) {}
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+	
+	.piano_mb:before {
+		background-position: 25% 100%;
+	}
+	.piano_keys-cols {
+		flex-wrap: wrap;
+	}
+	.piano_keys-cols li {
+		margin-bottom: 7px;
+	}
+}
+@media screen and (max-width: 992px) {
+	
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+	.piano_mb:before {
+		background-position: 25% 100%;
+	}
+	.piano_mb {
+		padding-bottom: 80px;
+	}
+	.piano_mb_tex-col {
+		margin-top: 60px;
+	}
+	.piano_mb_title1 {
+		font-size: 36px;
+		line-height: 46px;
+	}
+	.piano_keys-cols {
+		flex-wrap: wrap;
+	}
+	.piano_keys-cols li {
+		margin-bottom: 7px;
+	}
+	.exercises-row1 li {
+		padding-left: 15px;
+		padding-right: 15px;
+		width: 100%;
+	}
+	.exercises-row1 li img {
+		width: 100%;
+	}
+}
+@media screen and (max-width: 768px) {
+	.piano_mb {
+		padding-bottom: 0;
+	}
+	.piano_mb_tex-col {
+		margin-top: 60px;
+	}
+	.piano_mb:before {
+		display: none;
+	}
+	.piano-race-img-mobile {
+		padding: 0;
+		width: 100%;
+	}
+	.piano-race-img-mobile img {
+		width: 100%;
+	}
+	.piano_mb_tex-col > .col-md-7 {
+		padding-bottom: 30px;
+	}
+	.piano_exercises {
+		padding-top: 30px;
+		padding-bottom: 30px;
+	}
+	.piano_keys-cols {
+		flex-wrap: wrap;
+	}
+	.piano_keys-cols li {
+		margin-bottom: 7px;
+	}
+}
+@media screen and (min-width: 640px) and (max-width: 767px) {
+	.exercises-row1 {
+		flex-wrap: wrap;
+	}
+	.exercises-row1 li {
+		width: 50%;
+		align-items: center;
+		margin-bottom: 30px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	.exercises-row1 li img {
+		width: 178px;
+		margin-bottom: 15px;
+	}
+}
+@media screen and (min-width: 480px) and (max-width: 639px) {
+	.exercises-row1 {
+		flex-wrap: wrap;
+	}
+	.exercises-row1 li {
+		width: 50%;
+		align-items: center;
+		margin-bottom: 30px;
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+	.exercises-row1 li img {
+		width: 178px;
+		margin-bottom: 15px;
+	}
+}
+@media screen and (max-width: 479px) {
+	.piano_mb_title1 {
+		font-size: 32px;
+		line-height: 42px;
+	}
+	.title-h2, .piano_keys .container-md h2 {
+		font-size: 28px;
+		line-height: 38px;
+	}
+	.exercises-row {
+		margin-top: 25px;
+	}
+	.exercises-row1 {
+		flex-direction: column;
+	}
+	.exercises-row1 li {
+		width: 100%;
+		align-items: center;
+		margin-bottom: 30px;
+	}
+	.exercises-row1 li:last-child {
+		margin-bottom: 0;
+	}
+	.exercises-row1 li img {
+		width: 178px;
+		margin-bottom: 15px;
+	}
+}
+/* --  END MEDIA QUERIES - RESPONSIVE --*/
