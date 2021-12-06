@@ -15,7 +15,7 @@ GOOGLE_ANALYTICS = '''<!-- Global site tag (gtag.js) - Google Analytics -->
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home_page():  # put application's code here
     page = '''<!DOCTYPE html><html><head>
 <title>PianoPlay.app</title>
