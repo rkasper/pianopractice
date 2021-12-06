@@ -1,8 +1,11 @@
 import unittest
 
 # I want this tool to tell me which old exercise to practice, and the sequence of keys to practice them in.
+from typing import List
+
 import validators as validators
 
+import pianopractice
 from activity import Activity
 from pianopractice import PianoPractice
 
@@ -44,13 +47,12 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(exercises_to_practice[1].group.startswith("Hanon"))
         self.assertTrue(exercises_to_practice[2].group.startswith("Blues School"))
 
-    # def test_MinorScaleIsOneOfTheExercises(self):
-    #     scale: Activity
-    #     scales = PianoPractice.scales
-    #     for scale in scales:
-    #         if scale.name == "Minor":
-    #             pass
-    #     self.fail("There are no Minor scales in the list of exercises.")
+    def test_MinorScaleIsOneOfTheExercises(self):
+        scales: List[Activity] = pianopractice.SCALES
+        for scale in scales:
+            if scale.name == "Minor":
+                return
+        self.fail("There are no Minor scales in the list of exercises.")
 
     def test_rand_list_of_keys(self):
         keys: [str] = PianoPractice.keys_to_practice()

@@ -4,6 +4,7 @@ import random
 from activity import Activity
 
 SCALES = [Activity("Scale", "Major", "https://pianoscales.org/major.html"),
+                   Activity("Scale", "Minor", "https://pianoscales.org/minor.html"),
                    Activity("Scale", "Blues (minor)", "https://pianoscales.org/blues.html"),
                    Activity("Scale", "Blues (major)", "https://pianoscales.org/blues.html"),
                    Activity("Scale", "Mixolydian (dom7)", "https://pianoscales.org/mixolydian.html"),
