@@ -111,12 +111,7 @@ def foo():
     hanon = exercises[1]
     blues = exercises[2]
     keys = PianoPractice.keys_to_practice()
-    return render_template("index.html",
-                           scale_url=scale.url, scale_group=scale.group, scale_name=scale.name,
-                           hanon_url=hanon.url, hanon_group=hanon.group, hanon_name=hanon.name,
-                           blues_url=blues.url, blues_group=blues.group, blues_name=blues.name,
-                           key1=keys[0], key2=keys[1], key3=keys[2], key4=keys[3], key5=keys[4], key6=keys[5],
-                           key7=keys[6], key8=keys[7], key9=keys[8], key10=keys[9], key11=keys[10], key12=keys[11])
+    return render_template("index.html", scale=scale, hanon=hanon, blues=blues, keys=keys)
 
 
 if __name__ == '__main__':
