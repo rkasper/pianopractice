@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'])
-def home_page():
+def index():
     exercises = PianoPractice.exercises_to_practice()
     scale = exercises[0]
     hanon = exercises[1]
