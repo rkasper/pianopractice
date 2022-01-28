@@ -69,7 +69,13 @@ BLUES = [Activity("Blues School", "Major Blues 12-Bar Form & Harmony, The First 
          Activity("Blues School", "Major Blues 12-Bar Form & Harmony, Variation #7",
                   "https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-7/"),
          Activity("Blues School", "Major Blues 12-Bar Form & Harmony, Variation #8",
-                  "https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-8/")]
+                  "https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-8/"),
+         Activity("Blues School", "Comping Pattern #1",
+                  "https://piano-ology.com/blues-school-comping-pattern-1/"),
+         Activity("Blues School", "Comping Pattern #2",
+                  "https://piano-ology.com/blues-school-comping-pattern-2/"),
+         Activity("Blues School", "Comping Pattern #3",
+                  "https://piano-ology.com/blues-school-comping-pattern-3/")]
 
 
 class PianoPractice:
