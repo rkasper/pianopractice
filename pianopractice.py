@@ -11,8 +11,6 @@ SCALES = [{'group': 'Major', 'url': 'https://pianoscales.org/major.html'},
           {'group': 'Mixolydian (dom7)', 'url': 'https://pianoscales.org/mixolydian.html'},
           {'group': 'Chromatic', 'url': 'https://www.pianoscales.org/chromatic.html'}]
 
-HANON = 'Hanon'
-
 HANON_EXERCISES = [{'group': '1', 'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-1/'},
                    {'group': '2', 'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-2/'},
                    {'group': '3', 'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-3/'},
@@ -59,28 +57,28 @@ HANON_EXERCISES = [{'group': '1', 'url': 'https://www.hanon-online.com/the-virtu
 
 BLUES_SCHOOL = 'Blues School'
 
-BLUES = [Activity(BLUES_SCHOOL, 'Major Blues 12-Bar Form & Harmony, The First Lesson',
-                  'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-the-first-lesson/'),
-         Activity(BLUES_SCHOOL, 'Major Blues 12-Bar Form & Harmony, Variation #2',
-                  'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-2/'),
-         Activity(BLUES_SCHOOL, 'Major Blues 12-Bar Form & Harmony, Variation #3',
-                  'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-3/'),
-         Activity(BLUES_SCHOOL, 'Major Blues 12-Bar Form & Harmony, Variation #4',
-                  'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-4/'),
-         Activity(BLUES_SCHOOL, 'Major Blues 12-Bar Form & Harmony, Variation #5',
-                  'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-5/'),
-         Activity(BLUES_SCHOOL, 'Major Blues 12-Bar Form & Harmony, Variation #6',
-                  'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-6/'),
-         Activity(BLUES_SCHOOL, 'Major Blues 12-Bar Form & Harmony, Variation #7',
-                  'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-7/'),
-         Activity(BLUES_SCHOOL, 'Major Blues 12-Bar Form & Harmony, Variation #8',
-                  'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-8/'),
-         Activity(BLUES_SCHOOL, 'Comping Pattern #1',
-                  'https://piano-ology.com/blues-school-comping-pattern-1/'),
-         Activity(BLUES_SCHOOL, 'Comping Pattern #2',
-                  'https://piano-ology.com/blues-school-comping-pattern-2/'),
-         Activity(BLUES_SCHOOL, 'Comping Pattern #3',
-                  'https://piano-ology.com/blues-school-comping-pattern-3/')]
+BLUES = [{'group': 'Major Blues 12-Bar Form & Harmony, The First Lesson',
+                  'url': 'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-the-first-lesson/'},
+         {'group': 'Major Blues 12-Bar Form & Harmony, Variation #2',
+                  'url': 'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-2/'},
+         {'group': 'Major Blues 12-Bar Form & Harmony, Variation #3',
+                  'url': 'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-3/'},
+         {'group': 'Major Blues 12-Bar Form & Harmony, Variation #4',
+                  'url': 'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-4/'},
+         {'group': 'Major Blues 12-Bar Form & Harmony, Variation #5',
+                  'url': 'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-5/'},
+         {'group': 'Major Blues 12-Bar Form & Harmony, Variation #6',
+                  'url': 'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-6/'},
+         {'group': 'Major Blues 12-Bar Form & Harmony, Variation #7',
+                  'url': 'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-7/'},
+         {'group': 'Major Blues 12-Bar Form & Harmony, Variation #8',
+                  'url': 'https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-8/'},
+         {'group': 'Comping Pattern #1',
+                  'url': 'https://piano-ology.com/blues-school-comping-pattern-1/'},
+         {'group': 'Comping Pattern #2',
+                  'url': 'https://piano-ology.com/blues-school-comping-pattern-2/'},
+         {'group': 'Comping Pattern #3',
+                  'url': 'https://piano-ology.com/blues-school-comping-pattern-3/'}]
 
 
 class PianoPractice:
@@ -106,9 +104,10 @@ class PianoPractice:
         random_hanon = random.choice(HANON_EXERCISES)
         random_hanon_activity = Activity('Hanon', random_hanon['group'], random_hanon['url'])
 
-        blues_school: [Activity] = BLUES
+        random_blues_school = random.choice(BLUES)
+        random_blues_school_activity = Activity('Blues School', random_blues_school['group'], random_blues_school['url'])
 
-        return [random_scale_activity, random_hanon_activity, random.choice(blues_school)]
+        return [random_scale_activity, random_hanon_activity, random_blues_school_activity]
 
     @staticmethod
     def keys_to_practice() -> [str]:
