@@ -50,15 +50,15 @@ class MyTestCase(unittest.TestCase):
     def test_MinorScaleIsOneOfTheExercises(self):
         scales = pianopractice.SCALES
         for scale in scales:
-            if scale[0] == "Minor":
+            if scale['group'] == 'Minor':
                 return
-        self.fail("There are no Minor scales in the list of exercises.")
+        self.fail('There are no Minor scales in the list of exercises.')
 
     def test_rand_list_of_keys(self):
         keys: [str] = PianoPractice.keys_to_practice()
         self.assertEqual(12, len(keys))
-        self.assertIn("A", keys)
-        self.assertIn("C#/Db", keys)
+        self.assertIn('A', keys)
+        self.assertIn('C#/Db', keys)
 
         # TODO This is a bad test: it is nondeterministic - it might fail randomly. Fix that.
         keys2: [str] = PianoPractice.keys_to_practice()
