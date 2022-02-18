@@ -48,9 +48,9 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue(exercises_to_practice[2].group.startswith("Blues School"))
 
     def test_MinorScaleIsOneOfTheExercises(self):
-        scales: List[Activity] = pianopractice.SCALES
+        scales = pianopractice.SCALES
         for scale in scales:
-            if scale.name == "Minor":
+            if scale[0] == "Minor":
                 return
         self.fail("There are no Minor scales in the list of exercises.")
 

@@ -9,4 +9,4 @@ class Activity:
         self.url = url
 
     def __repr__(self):
-        return self.group + ': ' + self.name
+        return self.group + ' - ' + self.name + ' - ' + self.url
