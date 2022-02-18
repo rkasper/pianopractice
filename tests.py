@@ -28,10 +28,10 @@ class MyTestCase(unittest.TestCase):
             #     group.startswith("Scale") or group.startswith("Hanon") or group.startswith(
             #         "Blues School"), 'Unable to find a "Scale", "Hanon", or "Blues School".')
 
-            exercise: str = oldExercise['group']
+            exercise: str = oldExercise[PianoPractice.NAME]
             self.assertTrue(len(exercise) > 0)
 
-            self.assertTrue(validators.url(oldExercise['url']))
+            self.assertTrue(validators.url(oldExercise[PianoPractice.URL]))
 
     # TODO This is a bad test: it is nondeterministic - it might fail randomly. Fix that.
     def test_exerciseListIsRandom(self):
@@ -48,9 +48,9 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue('blues' in exercises_to_practice[2]['url'])
 
     def test_MinorScaleIsOneOfTheExercises(self):
-        scales = pianopractice.SCALES
+        scales = PianoPractice.SCALES
         for scale in scales:
-            if scale['group'] == 'Minor':
+            if scale['name'] == 'Minor':
                 return
         self.fail('There are no Minor scales in the list of exercises.')
 

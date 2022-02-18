@@ -22,7 +22,11 @@ def index():
     hanon = exercises[1]
     blues = exercises[2]
     keys = PianoPractice.keys_to_practice()
-    return render_template("index.html", scale=scale, hanon=hanon, blues=blues, keys=keys)
+    return render_template("index.html",
+                           scale_name=scale[PianoPractice.NAME], scale_url=scale[PianoPractice.URL],
+                           hanon_name=hanon[PianoPractice.NAME], hanon_url=hanon[PianoPractice.URL],
+                           blues_name=blues[PianoPractice.NAME], blues_url=blues[PianoPractice.URL],
+                           keys=keys)
 
 
 if __name__ == '__main__':
