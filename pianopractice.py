@@ -13,49 +13,49 @@ SCALES = [{'group': 'Major', 'url': 'https://pianoscales.org/major.html'},
 
 HANON = 'Hanon'
 
-HANON_EXERCISES = [Activity(HANON, '1', 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-1/'),
-                   Activity(HANON, '2', 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-2/'),
-                   Activity(HANON, '3', 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-3/'),
-                   Activity(HANON, '4', 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-4/'),
-                   Activity(HANON, '5', 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-5/'),
-                   Activity(HANON, '6', 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-6/'),
-                   Activity(HANON, '7', 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-7/'),
-                   Activity(HANON, '8', 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-8/'),
-                   Activity(HANON, '9', 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-9/'),
-                   Activity(HANON, '10',
-                            'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-10/'),
-                   Activity(HANON, '11',
-                            'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-11/'),
-                   Activity(HANON, '12',
-                            'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-12/'),
-                   Activity(HANON, '13',
-                            'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-13/'),
-                   Activity(HANON, '14',
-                            'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-14/'),
-                   Activity(HANON, '15',
-                            'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-15/'),
-                   Activity(HANON, '16',
-                            'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-16/'),
-                   Activity(HANON, '17',
-                            'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-17/'),
-                   Activity(HANON, '18',
-                            'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-18/'),
-                   Activity(HANON, '19',
-                            'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-19/'),
-                   Activity(HANON, '20',
-                            'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-20/'),
-                   Activity(HANON, '21', 'https://galaxymusicnotes.com/products/hanon-exercise-no-21'),
-                   Activity(HANON, '22', 'https://galaxymusicnotes.com/products/hanon-exercise-no-22'),
-                   Activity(HANON, '23',
-                            'https://galaxymusicnotes.com/products/hanon-exercise-no-23-from-the-virtuoso-pianist'),
-                   Activity(HANON, '24',
-                            'https://galaxymusicnotes.com/products/hanon-exercise-no-24-from-the-virtuoso-pianist-part-2'),
-                   Activity(HANON, '25', 'https://galaxymusicnotes.com/products/hanon-exercise-no-25'),
-                   Activity(HANON, '26', 'https://galaxymusicnotes.com/products/hanon-exercise-no-26'),
-                   Activity(HANON, '27', 'https://galaxymusicnotes.com/products/hanon-exercise-no-27'),
-                   Activity(HANON, '28', 'https://galaxymusicnotes.com/products/hanon-exercise-no-28'),
-                   Activity(HANON, '29', 'https://galaxymusicnotes.com/products/hanon-exercise-no-29'),
-                   Activity(HANON, '30', 'https://galaxymusicnotes.com/products/hanon-exercise-no-30')]
+HANON_EXERCISES = [{'group': '1', 'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-1/'},
+                   {'group': '2', 'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-2/'},
+                   {'group': '3', 'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-3/'},
+                   {'group': '4', 'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-4/'},
+                   {'group': '5', 'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-5/'},
+                   {'group': '6', 'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-6/'},
+                   {'group': '7', 'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-7/'},
+                   {'group': '8', 'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-8/'},
+                   {'group': '9', 'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-9/'},
+                   {'group': '10',
+                            'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-10/'},
+                   {'group': '11',
+                            'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-11/'},
+                   {'group': '12',
+                            'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-12/'},
+                   {'group': '13',
+                            'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-13/'},
+                   {'group': '14',
+                            'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-14/'},
+                   {'group': '15',
+                            'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-15/'},
+                   {'group': '16',
+                            'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-16/'},
+                   {'group': '17',
+                            'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-17/'},
+                   {'group': '18',
+                            'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-18/'},
+                   {'group': '19',
+                            'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-19/'},
+                   {'group': '20',
+                            'url': 'https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-20/'},
+                   {'group': '21', 'url': 'https://galaxymusicnotes.com/products/hanon-exercise-no-21'},
+                   {'group': '22', 'url': 'https://galaxymusicnotes.com/products/hanon-exercise-no-22'},
+                   {'group': '23',
+                            'url': 'https://galaxymusicnotes.com/products/hanon-exercise-no-23-from-the-virtuoso-pianist'},
+                   {'group': '24',
+                            'url': 'https://galaxymusicnotes.com/products/hanon-exercise-no-24-from-the-virtuoso-pianist-part-2'},
+                   {'group': '25', 'url': 'https://galaxymusicnotes.com/products/hanon-exercise-no-25'},
+                   {'group': '26', 'url': 'https://galaxymusicnotes.com/products/hanon-exercise-no-26'},
+                   {'group': '27', 'url': 'https://galaxymusicnotes.com/products/hanon-exercise-no-27'},
+                   {'group': '28', 'url': 'https://galaxymusicnotes.com/products/hanon-exercise-no-28'},
+                   {'group': '29', 'url': 'https://galaxymusicnotes.com/products/hanon-exercise-no-29'},
+                   {'group': '30', 'url': 'https://galaxymusicnotes.com/products/hanon-exercise-no-30'}]
 
 BLUES_SCHOOL = 'Blues School'
 
@@ -102,11 +102,13 @@ class PianoPractice:
 
         random_scale = random.choice(SCALES)
         random_scale_activity = Activity('Scale', random_scale['group'], random_scale['url'])
-        print('random_scale_activity: ' + str(random_scale_activity))
 
-        hanon: [Activity] = HANON_EXERCISES
+        random_hanon = random.choice(HANON_EXERCISES)
+        random_hanon_activity = Activity('Hanon', random_hanon['group'], random_hanon['url'])
+
         blues_school: [Activity] = BLUES
-        return [random_scale_activity, random.choice(hanon), random.choice(blues_school)]
+
+        return [random_scale_activity, random_hanon_activity, random.choice(blues_school)]
 
     @staticmethod
     def keys_to_practice() -> [str]:
