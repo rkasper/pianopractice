@@ -6,7 +6,7 @@ from typing import List
 import validators as validators
 
 import pianopractice
-from activity import Activity
+# from activity import Activity
 from pianopractice import PianoPractice
 
 
@@ -23,15 +23,15 @@ class MyTestCase(unittest.TestCase):
         # The old exercises or scales, Hanon, or Blues School.
         exercises_to_practice = PianoPractice.exercises_to_practice()
         for oldExercise in exercises_to_practice:
-            group: str = oldExercise.group
-            self.assertTrue(
-                group.startswith("Scale") or group.startswith("Hanon") or group.startswith(
-                    "Blues School"))
+            # group: str = oldExercise['group']
+            # self.assertTrue(
+            #     group.startswith("Scale") or group.startswith("Hanon") or group.startswith(
+            #         "Blues School"), 'Unable to find a "Scale", "Hanon", or "Blues School".')
 
-            exercise: str = oldExercise.name
+            exercise: str = oldExercise['group']
             self.assertTrue(len(exercise) > 0)
 
-            self.assertTrue(validators.url(oldExercise.url))
+            self.assertTrue(validators.url(oldExercise['url']))
 
     # TODO This is a bad test: it is nondeterministic - it might fail randomly. Fix that.
     def test_exerciseListIsRandom(self):
@@ -43,9 +43,9 @@ class MyTestCase(unittest.TestCase):
 
     def test_thereIsExactlyOneOfEachTypeOfExercise(self):
         exercises_to_practice = PianoPractice.exercises_to_practice()
-        self.assertTrue(exercises_to_practice[0].group.startswith("Scale"))
-        self.assertTrue(exercises_to_practice[1].group.startswith("Hanon"))
-        self.assertTrue(exercises_to_practice[2].group.startswith("Blues School"))
+        self.assertTrue('scale' in exercises_to_practice[0]['url'])
+        self.assertTrue('hanon' in exercises_to_practice[1]['url'])
+        self.assertTrue('blues' in exercises_to_practice[2]['url'])
 
     def test_MinorScaleIsOneOfTheExercises(self):
         scales = pianopractice.SCALES
