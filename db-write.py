@@ -1,19 +1,25 @@
-#!/usr/local/bin/python3
-import json
-import os
-import random
+from boto.s3.key import Key
 
-from boto.s3.connection import S3Connection
+from pianopractice import PianoPractice
 
-SCALES_MOCK_DB = """[{"name": "Major", "url": "https://pianoscales.org/major.html"},
+if __name__ == '__main__':
+    b = PianoPractice.storage_bucket()
+
+    scales = Key(b)
+    scales.key = PianoPractice.STORAGE_KEY_SCALES
+    scales.set_contents_from_string("""[{"name": "Major", "url": "https://pianoscales.org/major.html"},
 {"name": "Minor", "url": "https://pianoscales.org/minor.html"},
 {"name": "Blues (minor)", "url": "https://pianoscales.org/blues.html"},
 {"name": "Blues (major)", "url": "https://pianoscales.org/blues.html"},
 {"name": "Mixolydian (dom7)", "url": "https://pianoscales.org/mixolydian.html"},
-{"name": "Chromatic", "url": "https://www.pianoscales.org/chromatic.html"}]"""
+{"name": "Chromatic", "url": "https://www.pianoscales.org/chromatic.html"}]""")
+    # content = scales.get_contents_as_string()
+    # dict = json.loads(content)
+    # print('Scales: ' + str(dict))
 
-HANON_MOCK_DB = """[{"name": "1",
- "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-1/"},
+    hanon = Key(b)
+    hanon.key = PianoPractice.STORAGE_KEY_HANON
+    hanon.set_contents_from_string("""[{"name": "1", "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-1/"},
 {"name": "2", "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-2/"},
 {"name": "3", "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-3/"},
 {"name": "4", "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-4/"},
@@ -42,9 +48,14 @@ HANON_MOCK_DB = """[{"name": "1",
 {"name": "27", "url": "https://galaxymusicnotes.com/products/hanon-exercise-no-27"},
 {"name": "28", "url": "https://galaxymusicnotes.com/products/hanon-exercise-no-28"},
 {"name": "29", "url": "https://galaxymusicnotes.com/products/hanon-exercise-no-29"},
-{"name": "30", "url": "https://galaxymusicnotes.com/products/hanon-exercise-no-30"}]"""
+{"name": "30", "url": "https://galaxymusicnotes.com/products/hanon-exercise-no-30"}]""")
+    # content = hanon.get_contents_as_string()
+    # dict = json.loads(content)
+    # print('Hanon: ' + str(dict))
 
-BLUES_MOCK_DB = """[{"name": "Major Blues 12-Bar Form & Harmony, The First Lesson",
+    blues = Key(b)
+    blues.key = PianoPractice.STORAGE_KEY_BLUES
+    blues.set_contents_from_string("""[{"name": "Major Blues 12-Bar Form & Harmony, The First Lesson",
 "url": "https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-the-first-lesson/"},
 {"name": "Major Blues 12-Bar Form & Harmony, Variation #2",
 "url": "https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-2/"},
@@ -62,45 +73,7 @@ BLUES_MOCK_DB = """[{"name": "Major Blues 12-Bar Form & Harmony, The First Lesso
 "url": "https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-8/"},
 {"name": "Comping Pattern #1", "url": "https://piano-ology.com/blues-school-comping-pattern-1/"},
 {"name": "Comping Pattern #2", "url": "https://piano-ology.com/blues-school-comping-pattern-2/"},
-{"name": "Comping Pattern #3", "url": "https://piano-ology.com/blues-school-comping-pattern-3/"}]"""
-
-
-class PianoPractice:
-    STORAGE_KEY_SCALES = 'scales'
-    STORAGE_KEY_HANON = 'hanon'
-    STORAGE_KEY_BLUES = 'blues'
-
-    NAME = 'name'
-    URL = 'url'
-
-    if os.environ['MOCK_DB']:
-        SCALES = json.loads(SCALES_MOCK_DB)
-        HANON = json.loads(HANON_MOCK_DB)
-        BLUES = json.loads(BLUES_MOCK_DB)
-    else:
-        None  # TODO cloud storage goes here
-
-    @staticmethod
-    def storage_bucket():
-        apikey = os.environ['CELLAR_ADDON_KEY_ID']
-        secretkey = os.environ['CELLAR_ADDON_KEY_SECRET']
-        host = os.environ['CELLAR_ADDON_HOST']
-        conn = S3Connection(aws_access_key_id=apikey, aws_secret_access_key=secretkey, host=host)
-        return conn.get_bucket('exercises')
-
-    @staticmethod
-    def exercises_to_practice() -> []:
-        return [(random.choice(PianoPractice.SCALES)), (random.choice(PianoPractice.HANON)),
-                (random.choice(PianoPractice.BLUES))]
-
-    @staticmethod
-    def keys_to_practice() -> [str]:
-        keys: [str] = ['A', 'Bb/A#', 'B', 'C', 'C#/Db', 'D', 'Eb/D#', 'E', 'F', 'F#/Gb', 'G', 'Ab/G#']
-        random.shuffle(keys)
-        return keys
-
-
-if __name__ == '__main__':
-    print('Exercises:')
-    print('\n'.join(map(str, PianoPractice.exercises_to_practice())))
-    print('\nKeys:', ', '.join(map(str, PianoPractice.keys_to_practice())))
+{"name": "Comping Pattern #3", "url": "https://piano-ology.com/blues-school-comping-pattern-3/"}]""")
+    # content = blues.get_contents_as_string()
+    # dict = json.loads(content)
+    # print('Blues: ' + str(dict))
