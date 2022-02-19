@@ -4,6 +4,8 @@ import os
 import random
 
 from boto.s3.connection import S3Connection
+from boto.s3.key import Key
+
 
 SCALES_MOCK_DB = """[{"name": "Major", "url": "https://pianoscales.org/major.html"},
 {"name": "Minor", "url": "https://pianoscales.org/minor.html"},
@@ -65,6 +67,21 @@ BLUES_MOCK_DB = """[{"name": "Major Blues 12-Bar Form & Harmony, The First Lesso
 {"name": "Comping Pattern #3", "url": "https://piano-ology.com/blues-school-comping-pattern-3/"}]"""
 
 
+def storage_bucket():
+    apikey = os.environ['CELLAR_ADDON_KEY_ID']
+    secretkey = os.environ['CELLAR_ADDON_KEY_SECRET']
+    host = os.environ['CELLAR_ADDON_HOST']
+    conn = S3Connection(aws_access_key_id=apikey, aws_secret_access_key=secretkey, host=host)
+    return conn.get_bucket('exercises')
+
+def read_from_storage(storage_key):
+    b = storage_bucket()
+    scales = Key(b)
+    scales.key = storage_key
+    content = scales.get_contents_as_string()
+    return json.loads(content)
+
+
 class PianoPractice:
     STORAGE_KEY_SCALES = 'scales'
     STORAGE_KEY_HANON = 'hanon'
@@ -73,20 +90,14 @@ class PianoPractice:
     NAME = 'name'
     URL = 'url'
 
-    if os.environ['MOCK_DB']:
+    if os.environ.get('MOCK_DB'):
         SCALES = json.loads(SCALES_MOCK_DB)
         HANON = json.loads(HANON_MOCK_DB)
         BLUES = json.loads(BLUES_MOCK_DB)
     else:
-        None  # TODO cloud storage goes here
-
-    @staticmethod
-    def storage_bucket():
-        apikey = os.environ['CELLAR_ADDON_KEY_ID']
-        secretkey = os.environ['CELLAR_ADDON_KEY_SECRET']
-        host = os.environ['CELLAR_ADDON_HOST']
-        conn = S3Connection(aws_access_key_id=apikey, aws_secret_access_key=secretkey, host=host)
-        return conn.get_bucket('exercises')
+        SCALES = read_from_storage(STORAGE_KEY_SCALES)
+        HANON = read_from_storage(STORAGE_KEY_HANON)
+        BLUES = read_from_storage(STORAGE_KEY_BLUES)
 
     @staticmethod
     def exercises_to_practice() -> []:

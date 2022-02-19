@@ -2,10 +2,10 @@ import json
 
 from boto.s3.key import Key
 
-from pianopractice import PianoPractice
+from pianopractice import PianoPractice, storage_bucket
 
 if __name__ == '__main__':
-    b = PianoPractice.storage_bucket()
+    b = storage_bucket()
 
     scales = Key(b)
     scales.key = PianoPractice.STORAGE_KEY_SCALES
