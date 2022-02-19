@@ -90,19 +90,17 @@ class PianoPractice:
     NAME = 'name'
     URL = 'url'
 
-    if os.environ.get('MOCK_DB'):
-        SCALES = json.loads(SCALES_MOCK_DB)
-        HANON = json.loads(HANON_MOCK_DB)
-        BLUES = json.loads(BLUES_MOCK_DB)
-    else:
-        SCALES = read_from_storage(STORAGE_KEY_SCALES)
-        HANON = read_from_storage(STORAGE_KEY_HANON)
-        BLUES = read_from_storage(STORAGE_KEY_BLUES)
-
     @staticmethod
     def exercises_to_practice() -> []:
-        return [(random.choice(PianoPractice.SCALES)), (random.choice(PianoPractice.HANON)),
-                (random.choice(PianoPractice.BLUES))]
+        if os.environ.get('MOCK_DB'):
+            scales = json.loads(SCALES_MOCK_DB)
+            hanon = json.loads(HANON_MOCK_DB)
+            blues = json.loads(BLUES_MOCK_DB)
+        else:
+            scales = read_from_storage(PianoPractice.STORAGE_KEY_SCALES)
+            hanon = read_from_storage(PianoPractice.STORAGE_KEY_HANON)
+            blues = read_from_storage(PianoPractice.STORAGE_KEY_BLUES)
+        return [(random.choice(scales)), (random.choice(hanon)), (random.choice(blues))]
 
     @staticmethod
     def keys_to_practice() -> [str]:

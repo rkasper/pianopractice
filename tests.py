@@ -6,7 +6,6 @@ from typing import List
 import validators as validators
 
 import pianopractice
-# from activity import Activity
 from pianopractice import PianoPractice
 
 
@@ -46,13 +45,6 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue('scale' in exercises_to_practice[0]['url'])
         self.assertTrue('hanon' in exercises_to_practice[1]['url'])
         self.assertTrue('blues' in exercises_to_practice[2]['url'])
-
-    def test_MinorScaleIsOneOfTheExercises(self):
-        scales = PianoPractice.SCALES
-        for scale in scales:
-            if scale['name'] == 'Minor':
-                return
-        self.fail('There are no Minor scales in the list of exercises.')
 
     def test_rand_list_of_keys(self):
         keys: [str] = PianoPractice.keys_to_practice()

@@ -13,9 +13,6 @@ if __name__ == '__main__':
 {"name": "Blues (major)", "url": "https://pianoscales.org/blues.html"},
 {"name": "Mixolydian (dom7)", "url": "https://pianoscales.org/mixolydian.html"},
 {"name": "Chromatic", "url": "https://www.pianoscales.org/chromatic.html"}]""")
-    # content = scales.get_contents_as_string()
-    # dict = json.loads(content)
-    # print('Scales: ' + str(dict))
 
     hanon = Key(b)
     hanon.key = PianoPractice.STORAGE_KEY_HANON
@@ -49,9 +46,6 @@ if __name__ == '__main__':
 {"name": "28", "url": "https://galaxymusicnotes.com/products/hanon-exercise-no-28"},
 {"name": "29", "url": "https://galaxymusicnotes.com/products/hanon-exercise-no-29"},
 {"name": "30", "url": "https://galaxymusicnotes.com/products/hanon-exercise-no-30"}]""")
-    # content = hanon.get_contents_as_string()
-    # dict = json.loads(content)
-    # print('Hanon: ' + str(dict))
 
     blues = Key(b)
     blues.key = PianoPractice.STORAGE_KEY_BLUES
@@ -74,6 +68,3 @@ if __name__ == '__main__':
 {"name": "Comping Pattern #1", "url": "https://piano-ology.com/blues-school-comping-pattern-1/"},
 {"name": "Comping Pattern #2", "url": "https://piano-ology.com/blues-school-comping-pattern-2/"},
 {"name": "Comping Pattern #3", "url": "https://piano-ology.com/blues-school-comping-pattern-3/"}]""")
-    # content = blues.get_contents_as_string()
-    # dict = json.loads(content)
-    # print('Blues: ' + str(dict))
