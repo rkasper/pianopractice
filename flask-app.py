@@ -121,7 +121,7 @@ def admin():
         except DIDTokenError as e:
             raise BadRequest('DID Token is invalid: {}'.format(e))
 
-    return render_template("config.html",
+    return render_template("callback.html",
                            magic_publishable_api_key=magic_publishable_api_key)
 
 if __name__ == '__main__':
