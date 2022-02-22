@@ -11,16 +11,16 @@ if __name__ == '__main__':
     scales.key = PianoPractice.STORAGE_KEY_SCALES
     content = scales.get_contents_as_string()
     exercises = json.loads(content)
-    print('Scales: ' + str(exercises))
+    print('Scales: ' + json.dumps(exercises, indent=2))
 
     hanon = Key(b)
     hanon.key = PianoPractice.STORAGE_KEY_HANON
     content = hanon.get_contents_as_string()
     exercises = json.loads(content)
-    print('Hanon: ' + str(exercises))
+    print('Hanon: ' + json.dumps(exercises, indent=2))
 
     blues = Key(b)
     blues.key = PianoPractice.STORAGE_KEY_BLUES
     content = blues.get_contents_as_string()
     exercises = json.loads(content)
-    print('Blues: ' + str(exercises))
+    print('Blues: ' + json.dumps(exercises, indent=2))
