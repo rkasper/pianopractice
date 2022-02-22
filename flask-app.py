@@ -97,7 +97,7 @@ def login():
 
 @app.route('/callback', methods=['GET'])
 def callback():
-    magic_publishable_api_key = os.environ['MAGIC_PUBLISHABLE_API_KEY']
+    magic_secret_key = os.environ['MAGIC_SECRET_KEY']
 
     print('callback: request.authorization: ' + str(request.authorization))
 
@@ -116,7 +116,8 @@ def callback():
     #             'Authorization header is missing or header value is invalid',
     #         )
 
-    magic = Magic()
+    magic = Magic(magic_secret_key)
+    print('callback: created Magic instance')
 
     # Validate the did_token
     try:
@@ -130,7 +131,7 @@ def callback():
         raise BadRequest('DID Token is invalid: {}'.format(e))
 
     return render_template("callback.html",
-                           magic_publishable_api_key=magic_publishable_api_key)
+                           magic_publishable_api_key=magic_secret_key)
 
 if __name__ == '__main__':
     app.run()
