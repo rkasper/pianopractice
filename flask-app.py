@@ -41,6 +41,7 @@ def index():
 def admin():
     magic_publishable_api_key = os.environ['MAGIC_PUBLISHABLE_API_KEY']
 
+    print('admin: request.authorization: ' + request.authorization)
     print('admin: request.headers: ' + str(request.headers))
     authorization_header = request.headers.get('Authorization')
     if authorization_header: # Maybe the user tried logging in. Let's see if they authenticated.
@@ -83,7 +84,7 @@ def admin():
                                blues=str(json.loads(blues.get_contents_as_string())))
 
     else: # We got here without trying to log in. Redirect to the /login page.
-        print("admin: Attempted to GET admin without logging in first. Redirecting to login.")
+        print("admin: Attempted to GET /admin, but there's no Authentication header. Redirecting to login.")
         return redirect(url_for('login'))
 
 
@@ -93,6 +94,35 @@ def login():
     return render_template("login.html",
                            magic_publishable_api_key=magic_publishable_api_key)
 
+
+@app.route('/callback', methods=['GET'])
+def admin():
+    magic_publishable_api_key = os.environ['MAGIC_PUBLISHABLE_API_KEY']
+
+    print('callback: request.authorization: ' + request.authorization)
+    print('callback: request.headers: ' + str(request.headers))
+    authorization_header = request.headers.get('Authorization')
+    if authorization_header: # Maybe the user tried logging in. Let's see if they authenticated.
+        print("callback: Validating authorization.")
+        did_token = parse_authorization_header_value(
+            request.headers.get('Authorization'),
+        )
+        if did_token is None:
+            raise BadRequest(
+                'Authorization header is missing or header value is invalid',
+            )
+
+        magic = Magic()
+
+        # Validate the did_token
+        try:
+            magic.Token.validate(did_token)
+            issuer = magic.Token.get_issuer(did_token)
+        except DIDTokenError as e:
+            raise BadRequest('DID Token is invalid: {}'.format(e))
+
+    return render_template("config.html",
+                           magic_publishable_api_key=magic_publishable_api_key)
 
 if __name__ == '__main__':
     app.run()
