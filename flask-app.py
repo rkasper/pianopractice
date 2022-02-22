@@ -43,6 +43,7 @@ def admin():
 
     authorization_header = request.headers.get('Authorization')
     if authorization_header: # Maybe the user tried logging in. Let's see if they authenticated.
+        print("admin: Validating authorization.")
         did_token = parse_authorization_header_value(
             request.headers.get('Authorization'),
         )
@@ -81,6 +82,7 @@ def admin():
                                blues=str(json.loads(blues.get_contents_as_string())))
 
     else: # We got here without trying to log in. Redirect to the /login page.
+        print("admin: Attempted to GET admin without logging in first. Redirecting to login.")
         return redirect(url_for('login'))
 
 
