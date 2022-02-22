@@ -125,7 +125,8 @@ def callback():
         return render_template("callback.html",
                                magic_publishable_api_key=magic_secret_key)
     except Exception as e:
-        raise BadRequest(format(e))
+        print('Authorization failed: ' + format(e))
+        return render_template("denied.html")
 
 
 if __name__ == '__main__':
