@@ -44,7 +44,7 @@ def admin():
     print('admin: request.authorization: ' + request.authorization)
     print('admin: request.headers: ' + str(request.headers))
     authorization_header = request.headers.get('Authorization')
-    if authorization_header: # Maybe the user tried logging in. Let's see if they authenticated.
+    if authorization_header:  # Maybe the user tried logging in. Let's see if they authenticated.
         print("admin: Validating authorization.")
         did_token = parse_authorization_header_value(
             request.headers.get('Authorization'),
@@ -83,7 +83,7 @@ def admin():
                                hanon=str(json.loads(hanon.get_contents_as_string())),
                                blues=str(json.loads(blues.get_contents_as_string())))
 
-    else: # We got here without trying to log in. Redirect to the /login page.
+    else:  # We got here without trying to log in. Redirect to the /login page.
         print("admin: Attempted to GET /admin, but there's no Authentication header. Redirecting to login.")
         return redirect(url_for('login'))
 
@@ -97,33 +97,36 @@ def login():
 
 @app.route('/callback', methods=['GET'])
 def callback():
-    magic_secret_key = os.environ['MAGIC_SECRET_KEY']
-
-    print('callback: request.authorization: ' + str(request.authorization))
-
-    did_token = request.args.get('didt')
-    print('callback: got did_token: ' + did_token)
-
-    magic = Magic(api_secret_key=magic_secret_key)
-    print('callback: created Magic instance')
-
-    # Validate the did_token
     try:
+        # This is the login authorization token from Magic.
+        did_token = request.args.get('didt')
+
+        magic_secret_key = os.environ['MAGIC_SECRET_KEY']
+        magic = Magic(api_secret_key=magic_secret_key)
+
+        # Validate the did_token
         magic.Token.validate(did_token)
         print('callback: validated did_token')
-        issuer = magic.Token.get_issuer(did_token)
-        print('callback: issuer: ' + issuer)
-        public_address = magic.Token.get_public_address(did_token)
-        print('callback: public_address: ' + public_address)
 
-        magic_response = magic.User.get_metadata_by_issuer(issuer)
-        email = magic_response.data['email']
-        print('callback: email: ' + email)
-    except DIDTokenError as e:
-        raise BadRequest('DID Token is invalid: {}'.format(e))
+        # Example: The Magic docs suggest using issuer or public_address as the key for storing and retrieving user
+        # data in my app.
+        # issuer = magic.Token.get_issuer(did_token)
+        # print('callback: issuer: ' + issuer)
+        # public_address = magic.Token.get_public_address(did_token)
+        # print('callback: public_address: ' + public_address)
 
-    return render_template("callback.html",
-                           magic_publishable_api_key=magic_secret_key)
+        # Example: To get the user's human-readable email address, do this:
+        # magic_response = magic.User.get_metadata_by_issuer(issuer)
+        # email = magic_response.data['email']
+        # print('callback: email: ' + email)
+
+        # For this app, all we have to do is validate the token, which we did. Given a valid token, render the
+        # auth-protected page.
+        return render_template("callback.html",
+                               magic_publishable_api_key=magic_secret_key)
+    except Exception as e:
+        raise BadRequest(format(e))
+
 
 if __name__ == '__main__':
     app.run()
