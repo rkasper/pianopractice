@@ -99,27 +99,35 @@ def login():
 def callback():
     magic_publishable_api_key = os.environ['MAGIC_PUBLISHABLE_API_KEY']
 
-    print('callback: request.authorization: ' + request.authorization)
-    print('callback: request.headers: ' + str(request.headers))
-    authorization_header = request.headers.get('Authorization')
-    if authorization_header: # Maybe the user tried logging in. Let's see if they authenticated.
-        print("callback: Validating authorization.")
-        did_token = parse_authorization_header_value(
-            request.headers.get('Authorization'),
-        )
-        if did_token is None:
-            raise BadRequest(
-                'Authorization header is missing or header value is invalid',
-            )
+    print('callback: request.authorization: ' + str(request.authorization))
 
-        magic = Magic()
+    did_token = request.args.get('didt')
+    print('callback: got did_token: ' + did_token)
 
-        # Validate the did_token
-        try:
-            magic.Token.validate(did_token)
-            issuer = magic.Token.get_issuer(did_token)
-        except DIDTokenError as e:
-            raise BadRequest('DID Token is invalid: {}'.format(e))
+    # print('callback: request.headers: ' + str(request.headers))
+    # authorization_header = request.headers.get('Authorization')
+    # if authorization_header: # Maybe the user tried logging in. Let's see if they authenticated.
+    #     print("callback: Validating authorization.")
+    #     did_token = parse_authorization_header_value(
+    #         request.headers.get('Authorization'),
+    #     )
+    #     if did_token is None:
+    #         raise BadRequest(
+    #             'Authorization header is missing or header value is invalid',
+    #         )
+
+    magic = Magic()
+
+    # Validate the did_token
+    try:
+        magic.Token.validate(did_token)
+        print('callback: validated did_token')
+        issuer = magic.Token.get_issuer(did_token)
+        print('callback: issuer: ' + issuer)
+        public_address = magic.Token.get_public_address(did_token)
+        print('callback: public_address: ' + public_address)
+    except DIDTokenError as e:
+        raise BadRequest('DID Token is invalid: {}'.format(e))
 
     return render_template("callback.html",
                            magic_publishable_api_key=magic_publishable_api_key)
