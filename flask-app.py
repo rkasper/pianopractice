@@ -1,4 +1,5 @@
 import json
+import os
 
 from boto.s3.key import Key
 from flask import Flask, render_template
@@ -32,8 +33,10 @@ def index():
                            keys=keys)
 
 
-@app.route('/admin', methods=['GET'])
+@app.route('/admin', methods=['POST', 'GET'])
 def admin():
+    magic_publishable_api_key = os.environ['MAGIC_PUBLISHABLE_API_KEY']
+
     b = storage_bucket()
 
     scales = Key(b)
@@ -46,10 +49,28 @@ def admin():
     blues.key = PianoPractice.STORAGE_KEY_BLUES
 
     return """<html><body>
-<p>Scales: """ + str(json.dumps(json.loads(scales.get_contents_as_string()))) + """
-<p>Hanon: """ + str(json.loads(hanon.get_contents_as_string())) + """
-<p>Blues School: """ + str(json.loads(blues.get_contents_as_string())) + """
-</body></html>"""
+    <script
+      src="https://auth.magic.link/pnp/callback"
+      data-magic-publishable-api-key=\"""" + magic_publishable_api_key + """"\">
+    </script>
+    <p>Scales: """ + str(json.dumps(json.loads(scales.get_contents_as_string()))) + """
+    <p>Hanon: """ + str(json.loads(hanon.get_contents_as_string())) + """
+    <p>Blues School: """ + str(json.loads(blues.get_contents_as_string())) + """
+    </body></html>"""
+
+
+@app.route('/login', methods=['GET'])
+def login():
+    magic_publishable_api_key = os.environ['MAGIC_PUBLISHABLE_API_KEY']
+    return render_template("login.html",
+                           magic_publishable_api_key=magic_publishable_api_key)
+
+
+@app.route('/callback', methods=['POST', 'GET'])
+def callback():
+    magic_publishable_api_key = os.environ['MAGIC_PUBLISHABLE_API_KEY']
+    return render_template("callback.html",
+                           magic_publishable_api_key=magic_publishable_api_key)
 
 
 if __name__ == '__main__':
