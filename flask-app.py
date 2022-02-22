@@ -4,9 +4,6 @@ import os
 from boto.s3.key import Key
 from flask import Flask, render_template, request, redirect, url_for
 from magic_admin import Magic
-from magic_admin.utils.http import parse_authorization_header_value
-from magic_admin.error import DIDTokenError
-from werkzeug.exceptions import BadRequest
 
 from pianopractice import PianoPractice, storage_bucket
 
@@ -90,7 +87,7 @@ def admin():
 
     except Exception as e:
         print('Authorization failed: ' + format(e))
-        return render_template("denied.html")
+        return redirect(url_for("login"))
 
 
 if __name__ == '__main__':
