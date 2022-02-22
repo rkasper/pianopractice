@@ -96,7 +96,7 @@ def login():
 
 
 @app.route('/callback', methods=['GET'])
-def admin():
+def callback():
     magic_publishable_api_key = os.environ['MAGIC_PUBLISHABLE_API_KEY']
 
     print('callback: request.authorization: ' + request.authorization)
