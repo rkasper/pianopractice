@@ -104,19 +104,7 @@ def callback():
     did_token = request.args.get('didt')
     print('callback: got did_token: ' + did_token)
 
-    # print('callback: request.headers: ' + str(request.headers))
-    # authorization_header = request.headers.get('Authorization')
-    # if authorization_header: # Maybe the user tried logging in. Let's see if they authenticated.
-    #     print("callback: Validating authorization.")
-    #     did_token = parse_authorization_header_value(
-    #         request.headers.get('Authorization'),
-    #     )
-    #     if did_token is None:
-    #         raise BadRequest(
-    #             'Authorization header is missing or header value is invalid',
-    #         )
-
-    magic = Magic(magic_secret_key)
+    magic = Magic(api_secret_key=magic_secret_key)
     print('callback: created Magic instance')
 
     # Validate the did_token
@@ -127,6 +115,10 @@ def callback():
         print('callback: issuer: ' + issuer)
         public_address = magic.Token.get_public_address(did_token)
         print('callback: public_address: ' + public_address)
+
+        magic_response = magic.User.get_metadata_by_issuer(issuer)
+        email = magic_response.data['email']
+        print('callback: email: ' + email)
     except DIDTokenError as e:
         raise BadRequest('DID Token is invalid: {}'.format(e))
 
