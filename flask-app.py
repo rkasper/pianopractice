@@ -2,7 +2,11 @@ import json
 import os
 
 from boto.s3.key import Key
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
+from magic_admin import Magic
+from magic_admin.utils.http import parse_authorization_header_value
+from magic_admin.error import DIDTokenError
+from werkzeug.exceptions import BadRequest
 
 from pianopractice import PianoPractice, storage_bucket
 
@@ -33,43 +37,57 @@ def index():
                            keys=keys)
 
 
-@app.route('/admin', methods=['POST', 'GET'])
+@app.route('/admin', methods=['GET'])
 def admin():
     magic_publishable_api_key = os.environ['MAGIC_PUBLISHABLE_API_KEY']
 
-    b = storage_bucket()
+    authorization_header = request.headers.get('Authorization')
+    if authorization_header: # Maybe the user tried logging in. Let's see if they authenticated.
+        did_token = parse_authorization_header_value(
+            request.headers.get('Authorization'),
+        )
+        if did_token is None:
+            raise BadRequest(
+                'Authorization header is missing or header value is invalid',
+            )
 
-    scales = Key(b)
-    scales.key = PianoPractice.STORAGE_KEY_SCALES
+        magic = Magic()
 
-    hanon = Key(b)
-    hanon.key = PianoPractice.STORAGE_KEY_HANON
+        # Validate the did_token
+        try:
+            magic.Token.validate(did_token)
+            issuer = magic.Token.get_issuer(did_token)
+        except DIDTokenError as e:
+            raise BadRequest('DID Token is invalid: {}'.format(e))
 
-    blues = Key(b)
-    blues.key = PianoPractice.STORAGE_KEY_BLUES
+        # # Use your application logic to load the user info.
+        # user_info = logic.User.load_by(issuer=issuer)
 
-    return """<html><body>
-    <script
-      src="https://auth.magic.link/pnp/callback"
-      data-magic-publishable-api-key=\"""" + magic_publishable_api_key + """"\">
-    </script>
-    <p>Scales: """ + str(json.dumps(json.loads(scales.get_contents_as_string()))) + """
-    <p>Hanon: """ + str(json.loads(hanon.get_contents_as_string())) + """
-    <p>Blues School: """ + str(json.loads(blues.get_contents_as_string())) + """
-    </body></html>"""
+        b = storage_bucket()
+
+        scales = Key(b)
+        scales.key = PianoPractice.STORAGE_KEY_SCALES
+
+        hanon = Key(b)
+        hanon.key = PianoPractice.STORAGE_KEY_HANON
+
+        blues = Key(b)
+        blues.key = PianoPractice.STORAGE_KEY_BLUES
+
+        return render_template("admin.html",
+                               magic_publishable_api_key=magic_publishable_api_key,
+                               scales=str(json.dumps(json.loads(scales.get_contents_as_string()))),
+                               hanon=str(json.loads(hanon.get_contents_as_string())),
+                               blues=str(json.loads(blues.get_contents_as_string())))
+
+    else: # We got here without trying to log in. Redirect to the /login page.
+        return redirect(url_for('login'))
 
 
 @app.route('/login', methods=['GET'])
 def login():
     magic_publishable_api_key = os.environ['MAGIC_PUBLISHABLE_API_KEY']
     return render_template("login.html",
-                           magic_publishable_api_key=magic_publishable_api_key)
-
-
-@app.route('/callback', methods=['POST', 'GET'])
-def callback():
-    magic_publishable_api_key = os.environ['MAGIC_PUBLISHABLE_API_KEY']
-    return render_template("callback.html",
                            magic_publishable_api_key=magic_publishable_api_key)
 
 
