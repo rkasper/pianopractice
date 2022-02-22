@@ -41,6 +41,7 @@ def index():
 def admin():
     magic_publishable_api_key = os.environ['MAGIC_PUBLISHABLE_API_KEY']
 
+    print('admin: request.headers: ' + str(request.headers))
     authorization_header = request.headers.get('Authorization')
     if authorization_header: # Maybe the user tried logging in. Let's see if they authenticated.
         print("admin: Validating authorization.")
