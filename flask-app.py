@@ -41,8 +41,9 @@ def login():
                            magic_publishable_api_key=magic_publishable_api_key)
 
 
-@app.route('/admin', methods=['GET'])
+@app.route('/admin', methods=['GET', 'POST'])
 def admin():
+    print('admin')
     test_mode = os.environ['TEST_MODE']
     if test_mode is None or test_mode == 'FALSE':
         try:
@@ -74,21 +75,40 @@ def admin():
     # For this app, all we have to do is validate the token, which we did. Given a valid token, render the
     # auth-protected page.
 
+    scales = ''
+    hanon = ''
+    blues = ''
+
     b = storage_bucket()
 
-    scales = Key(b)
-    scales.key = PianoPractice.STORAGE_KEY_SCALES
+    scales_storage = Key(b)
+    scales_storage.key = PianoPractice.STORAGE_KEY_SCALES
 
-    hanon = Key(b)
-    hanon.key = PianoPractice.STORAGE_KEY_HANON
+    hanon_storage = Key(b)
+    hanon_storage.key = PianoPractice.STORAGE_KEY_HANON
 
-    blues = Key(b)
-    blues.key = PianoPractice.STORAGE_KEY_BLUES
+    blues_storage = Key(b)
+    blues_storage.key = PianoPractice.STORAGE_KEY_BLUES
+
+    if request.method == 'POST':  # The web form supplied the data. Store the new data.
+        scales = str(request.form.get(PianoPractice.STORAGE_KEY_SCALES))
+        hanon = str(request.form.get(PianoPractice.STORAGE_KEY_HANON))
+        blues = str(request.form.get(PianoPractice.STORAGE_KEY_BLUES))
+
+        scales_storage.set_contents_from_string(scales)
+        hanon_storage.set_contents_from_string(hanon)
+        blues_storage.set_contents_from_string(blues)
+    else:  # Get the data from storage.
+        # json.dumps(json.loads(...)) seems redundant, but it's not. It's a hack that converts the stored data from a
+        # b'...' kind of string to a plain-old string.
+        scales = str(json.dumps(json.loads(scales_storage.get_contents_as_string())))
+        hanon = str(json.dumps(json.loads(hanon_storage.get_contents_as_string())))
+        blues = str(json.dumps(json.loads(blues_storage.get_contents_as_string())))
 
     return render_template("admin.html",
-                           scales=str(json.dumps(json.loads(scales.get_contents_as_string()))),
-                           hanon=str(json.loads(hanon.get_contents_as_string())),
-                           blues=str(json.loads(blues.get_contents_as_string())))
+                           scales=scales,
+                           hanon=hanon,
+                           blues=blues)
 
 
 
