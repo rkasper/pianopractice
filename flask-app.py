@@ -44,8 +44,7 @@ def login():
 # TODO Method too long
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
-    print('admin')
-    test_mode = os.environ['TEST_MODE']
+    test_mode = os.getenv('TEST_MODE')
     if test_mode is None or test_mode == 'FALSE':
         try:
             # This is the login authorization token from Magic.
