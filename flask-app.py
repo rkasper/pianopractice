@@ -49,7 +49,10 @@ def admin():
     if test_mode is None or test_mode == 'FALSE':
         try:
             # This is the login authorization token from Magic.
-            did_token = request.args.get('didt')
+            if request.method == 'GET':
+                did_token = request.args.get('didt')
+            else:
+                did_token = request.form.get('didt')
             print("/admin: didt: " + did_token)
 
             magic_secret_key = os.environ['MAGIC_SECRET_KEY']
