@@ -50,6 +50,7 @@ def admin():
         try:
             # This is the login authorization token from Magic.
             did_token = request.args.get('didt')
+            print("/admin: didt: " + did_token)
 
             magic_secret_key = os.environ['MAGIC_SECRET_KEY']
             magic = Magic(api_secret_key=magic_secret_key)
