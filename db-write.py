@@ -16,7 +16,8 @@ if __name__ == '__main__':
 
     hanon = Key(b)
     hanon.key = PianoPractice.STORAGE_KEY_HANON
-    hanon.set_contents_from_string("""[{"name": "1", "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-1/"},
+    hanon.set_contents_from_string("""[{"name": "1",
+              "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-1/"},
 {"name": "2", "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-2/"},
 {"name": "3", "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-3/"},
 {"name": "4", "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-4/"},

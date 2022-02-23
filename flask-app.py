@@ -41,6 +41,7 @@ def login():
                            magic_publishable_api_key=magic_publishable_api_key)
 
 
+# TODO Method too long
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     print('admin')
@@ -57,8 +58,9 @@ def admin():
             magic.Token.validate(did_token)
             print('callback: validated did_token')
 
-            # Sample code: The Magic docs suggest using issuer or public_address as the key for storing and retrieving user
-            # data in my app. In this app, we might store/retrieve a user-specific list of piano exercises, for example.
+            # Sample code: The Magic docs suggest using issuer or public_address as the key for storing and retrieving
+            # user data in my app. In this app, we might store/retrieve a user-specific list of piano exercises, for
+            # example.
             # issuer = magic.Token.get_issuer(did_token)
             # print('callback: issuer: ' + issuer)
             # public_address = magic.Token.get_public_address(did_token)
@@ -78,6 +80,8 @@ def admin():
     scales = ''
     hanon = ''
     blues = ''
+
+    # TODO flask-app shouldn't have to know anything about S3 storage. Encapsulate it elsewhere.
 
     b = storage_bucket()
 
@@ -100,7 +104,7 @@ def admin():
         blues_storage.set_contents_from_string(blues)
     else:  # Get the data from storage.
         # json.dumps(json.loads(...)) seems redundant, but it's not. It's a hack that converts the stored data from a
-        # b'...' kind of string to a plain-old string.
+        # b'...' kind of string to a plain-old string. I bet there's a better way, but this is adequate for now.
         scales = str(json.dumps(json.loads(scales_storage.get_contents_as_string())))
         hanon = str(json.dumps(json.loads(hanon_storage.get_contents_as_string())))
         blues = str(json.dumps(json.loads(blues_storage.get_contents_as_string())))
@@ -109,7 +113,6 @@ def admin():
                            scales=scales,
                            hanon=hanon,
                            blues=blues)
-
 
 
 if __name__ == '__main__':
