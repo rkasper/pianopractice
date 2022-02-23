@@ -45,6 +45,7 @@ def login():
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
     test_mode = os.getenv('TEST_MODE')
+    did_token = ''  # Because even if we're in test-mode, we pass did_token to the render template.
     if test_mode is None or test_mode == 'FALSE':
         try:
             # This is the login authorization token from Magic.
@@ -76,6 +77,7 @@ def admin():
     # For this app, all we have to do is validate the token, which we did. Given a valid token, render the
     # auth-protected page.
 
+    # TODO Is this necessary? Maybe we don't have to declare these outside of the if-then statement.
     scales = ''
     hanon = ''
     blues = ''
@@ -109,6 +111,7 @@ def admin():
         blues = str(json.dumps(json.loads(blues_storage.get_contents_as_string())))
 
     return render_template("admin.html",
+                           dtdt=did_token,
                            scales=scales,
                            hanon=hanon,
                            blues=blues)
