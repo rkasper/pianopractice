@@ -43,51 +43,53 @@ def login():
 
 @app.route('/admin', methods=['GET'])
 def admin():
-    try:
-        # This is the login authorization token from Magic.
-        did_token = request.args.get('didt')
+    test_mode = os.environ['TEST_MODE']
+    if test_mode is None or test_mode == 'FALSE':
+        try:
+            # This is the login authorization token from Magic.
+            did_token = request.args.get('didt')
 
-        magic_secret_key = os.environ['MAGIC_SECRET_KEY']
-        magic = Magic(api_secret_key=magic_secret_key)
+            magic_secret_key = os.environ['MAGIC_SECRET_KEY']
+            magic = Magic(api_secret_key=magic_secret_key)
 
-        # Validate the did_token
-        magic.Token.validate(did_token)
-        print('callback: validated did_token')
+            # Validate the did_token
+            magic.Token.validate(did_token)
+            print('callback: validated did_token')
 
-        # Sample code: The Magic docs suggest using issuer or public_address as the key for storing and retrieving user
-        # data in my app. In this app, we might store/retrieve a user-specific list of piano exercises, for example.
-        # issuer = magic.Token.get_issuer(did_token)
-        # print('callback: issuer: ' + issuer)
-        # public_address = magic.Token.get_public_address(did_token)
-        # print('callback: public_address: ' + public_address)
+            # Sample code: The Magic docs suggest using issuer or public_address as the key for storing and retrieving user
+            # data in my app. In this app, we might store/retrieve a user-specific list of piano exercises, for example.
+            # issuer = magic.Token.get_issuer(did_token)
+            # print('callback: issuer: ' + issuer)
+            # public_address = magic.Token.get_public_address(did_token)
+            # print('callback: public_address: ' + public_address)
 
-        # Sample code: To get the user's human-readable email address, do this:
-        # magic_response = magic.User.get_metadata_by_issuer(issuer)
-        # email = magic_response.data['email']
-        # print('callback: email: ' + email)
+            # Sample code: To get the user's human-readable email address, do this:
+            # magic_response = magic.User.get_metadata_by_issuer(issuer)
+            # email = magic_response.data['email']
+            # print('callback: email: ' + email)
+        except Exception as e:
+            print('Authorization failed: ' + format(e))
+            return redirect(url_for("login"))
 
-        # For this app, all we have to do is validate the token, which we did. Given a valid token, render the
-        # auth-protected page.
+    # For this app, all we have to do is validate the token, which we did. Given a valid token, render the
+    # auth-protected page.
 
-        b = storage_bucket()
+    b = storage_bucket()
 
-        scales = Key(b)
-        scales.key = PianoPractice.STORAGE_KEY_SCALES
+    scales = Key(b)
+    scales.key = PianoPractice.STORAGE_KEY_SCALES
 
-        hanon = Key(b)
-        hanon.key = PianoPractice.STORAGE_KEY_HANON
+    hanon = Key(b)
+    hanon.key = PianoPractice.STORAGE_KEY_HANON
 
-        blues = Key(b)
-        blues.key = PianoPractice.STORAGE_KEY_BLUES
+    blues = Key(b)
+    blues.key = PianoPractice.STORAGE_KEY_BLUES
 
-        return render_template("admin.html",
-                               scales=str(json.dumps(json.loads(scales.get_contents_as_string()))),
-                               hanon=str(json.loads(hanon.get_contents_as_string())),
-                               blues=str(json.loads(blues.get_contents_as_string())))
+    return render_template("admin.html",
+                           scales=str(json.dumps(json.loads(scales.get_contents_as_string()))),
+                           hanon=str(json.loads(hanon.get_contents_as_string())),
+                           blues=str(json.loads(blues.get_contents_as_string())))
 
-    except Exception as e:
-        print('Authorization failed: ' + format(e))
-        return redirect(url_for("login"))
 
 
 if __name__ == '__main__':
