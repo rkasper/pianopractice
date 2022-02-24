@@ -50,10 +50,14 @@ def admin():
         try:
             # This is the login authorization token from Magic.
             if request.method == 'GET':
+                print('admin: GET')
                 did_token = request.args.get('didt')
+                print('admin: GET - did_token: ' + did_token)
             else:
+                print('admin: POST')
                 did_token = request.form.get('didt')
-            print("/admin: didt: " + did_token)
+                print('admin: POST - did_token: ' + did_token)
+            print("/admin: did_token: " + did_token)
 
             magic_secret_key = os.environ['MAGIC_SECRET_KEY']
             magic = Magic(api_secret_key=magic_secret_key)
