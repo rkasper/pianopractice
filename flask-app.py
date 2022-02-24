@@ -119,7 +119,7 @@ def admin():
         blues = str(json.dumps(json.loads(blues_storage.get_contents_as_string())))
 
     return render_template("admin.html",
-                           dtdt=did_token,
+                           didt=did_token,
                            scales=scales,
                            hanon=hanon,
                            blues=blues)
