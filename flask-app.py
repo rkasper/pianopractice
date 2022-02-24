@@ -48,14 +48,16 @@ def admin():
     did_token = ''  # Because even if we're in test-mode, we pass did_token to the render template.
     if test_mode is None or test_mode == 'FALSE':
         try:
-            # This is the login authorization token from Magic.
+            # did_token is the login authorization token from Magic.
+            # We're passing the auth token to the form, and back from the form to this route. There's probably a
+            # better way to stay logged in, but this works well enough for now.
             if request.method == 'GET':
                 print('admin: GET')
                 did_token = request.args.get('didt')
                 print('admin: GET - did_token: ' + did_token)
             else:
                 print('admin: POST')
-                did_token = str(request.form.get('didt'))
+                did_token = request.form.get('didt')
                 print('admin: POST - did_token: ' + did_token)
             print("admin: did_token: " + did_token)
 
