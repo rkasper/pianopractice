@@ -55,16 +55,16 @@ def admin():
                 print('admin: GET - did_token: ' + did_token)
             else:
                 print('admin: POST')
-                did_token = request.form.get('didt')
+                did_token = str(request.form.get('didt'))
                 print('admin: POST - did_token: ' + did_token)
-            print("/admin: did_token: " + did_token)
+            print("admin: did_token: " + did_token)
 
             magic_secret_key = os.environ['MAGIC_SECRET_KEY']
             magic = Magic(api_secret_key=magic_secret_key)
 
             # Validate the did_token
             magic.Token.validate(did_token)
-            print('callback: validated did_token')
+            print('admin: validated did_token')
 
             # Sample code: The Magic docs suggest using issuer or public_address as the key for storing and retrieving
             # user data in my app. In this app, we might store/retrieve a user-specific list of piano exercises, for
@@ -79,7 +79,7 @@ def admin():
             # email = magic_response.data['email']
             # print('callback: email: ' + email)
         except Exception as e:
-            print('Authorization failed: ' + format(e))
+            print('admin: authorization failed: ' + format(e))
             return redirect(url_for("login"))
 
     # For this app, all we have to do is validate the token, which we did. Given a valid token, render the
