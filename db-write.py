@@ -1,23 +1,14 @@
-from boto.s3.key import Key
-
-from pianopractice import PianoPractice
-from storage import storage_bucket
+from storage import Storage
 
 if __name__ == '__main__':
-    b = storage_bucket()
-
-    scales = Key(b)
-    scales.key = PianoPractice.STORAGE_KEY_SCALES
-    scales.set_contents_from_string("""[{"name": "Major", "url": "https://pianoscales.org/major.html"},
+    Storage.set_scales_from_string("""[{"name": "Major", "url": "https://pianoscales.org/major.html"},
 {"name": "Minor", "url": "https://pianoscales.org/minor.html"},
 {"name": "Blues (minor)", "url": "https://pianoscales.org/blues.html"},
 {"name": "Blues (major)", "url": "https://pianoscales.org/blues.html"},
 {"name": "Mixolydian (dom7)", "url": "https://pianoscales.org/mixolydian.html"},
 {"name": "Chromatic", "url": "https://www.pianoscales.org/chromatic.html"}]""")
 
-    hanon = Key(b)
-    hanon.key = PianoPractice.STORAGE_KEY_HANON
-    hanon.set_contents_from_string("""[{"name": "1",
+    Storage.set_hanon_from_string("""[{"name": "1",
               "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-1/"},
 {"name": "2", "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-2/"},
 {"name": "3", "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-3/"},
@@ -49,9 +40,7 @@ if __name__ == '__main__':
 {"name": "29", "url": "https://galaxymusicnotes.com/products/hanon-exercise-no-29"},
 {"name": "30", "url": "https://galaxymusicnotes.com/products/hanon-exercise-no-30"}]""")
 
-    blues = Key(b)
-    blues.key = PianoPractice.STORAGE_KEY_BLUES
-    blues.set_contents_from_string("""[{"name": "Major Blues 12-Bar Form & Harmony, The First Lesson",
+    Storage.set_blues_from_string("""[{"name": "Major Blues 12-Bar Form & Harmony, The First Lesson",
 "url": "https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-the-first-lesson/"},
 {"name": "Major Blues 12-Bar Form & Harmony, Variation #2",
 "url": "https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-2/"},

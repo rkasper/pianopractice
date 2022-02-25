@@ -1,9 +1,8 @@
 import os
 
-from boto.s3.key import Key
 from flask import Flask, render_template, request
 
-from Authentication import did_token_required
+from authentication import did_token_required, with_magic_publishable_api_key
 from pianopractice import PianoPractice
 from storage import Storage
 
@@ -13,9 +12,7 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def index():
     exercises = PianoPractice.exercises_to_practice()
-    print('index: exercises: ' + str(exercises))
     scale = exercises[0]
-    print('index: scale: ' + str(scale))
     hanon = exercises[1]
     blues = exercises[2]
     keys = PianoPractice.keys_to_practice()
@@ -27,13 +24,12 @@ def index():
 
 
 @app.route('/login', methods=['GET'])
-def login():
-    magic_publishable_api_key = os.environ['MAGIC_PUBLISHABLE_API_KEY']
+@with_magic_publishable_api_key
+def login(magic_publishable_api_key):
     return render_template("login.html",
                            magic_publishable_api_key=magic_publishable_api_key)
 
 
-# TODO Method too long
 @app.route('/admin', methods=['GET', 'POST'])
 @did_token_required
 def admin(did_token):
