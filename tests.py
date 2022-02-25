@@ -1,11 +1,9 @@
 import unittest
 
 # I want this tool to tell me which old exercise to practice, and the sequence of keys to practice them in.
-from typing import List
 
 import validators as validators
 
-import pianopractice
 from pianopractice import PianoPractice
 
 
