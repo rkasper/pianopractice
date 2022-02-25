@@ -33,6 +33,7 @@ def login(magic_publishable_api_key):
 @app.route('/admin', methods=['GET', 'POST'])
 @did_token_required
 def admin(did_token):
+    print('admin')
     if request.method == 'POST':  # The web form supplied the data. Store the new data.
         scales = str(request.form.get(Storage.STORAGE_KEY_SCALES))
         hanon = str(request.form.get(Storage.STORAGE_KEY_HANON))

@@ -5,7 +5,7 @@ from flask import request, redirect, url_for
 from magic_admin import Magic
 
 
-def get_magic_secret_key():
+def __get_magic_secret_key():
     return os.environ.get('MAGIC_SECRET_KEY')
 
 
@@ -33,7 +33,7 @@ def did_token_required(func):
                 else:
                     did_token = request.form.get('didt')
 
-                magic = Magic(api_secret_key=get_magic_secret_key())
+                magic = Magic(api_secret_key=__get_magic_secret_key())
 
                 # Validate the did_token
                 magic.Token.validate(did_token)
