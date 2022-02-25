@@ -34,7 +34,6 @@ def did_token_required(func):
                     did_token = request.form.get('didt')
 
                 magic = Magic(api_secret_key=get_magic_secret_key())
-                print()
 
                 # Validate the did_token
                 magic.Token.validate(did_token)
@@ -55,6 +54,9 @@ def did_token_required(func):
                 return func(did_token)
             except Exception as e:
                 print('did_token_required: authorization failed: ' + format(e))
+                # TODO Consider changing this return statement - it depends on Flask running, which gives us a
+                # dependency we don't necessarily want. It's not so bad, because we only invoke authentication within
+                # Flask, but it makes it harder to test, if nothing else.
                 return redirect(url_for("login"))
         else:
             return func(did_token)
