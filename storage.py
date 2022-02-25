@@ -10,14 +10,14 @@ class Storage:
     STORAGE_KEY_HANON = 'hanon'
     STORAGE_KEY_BLUES = 'blues'
 
-    MOCK_DB_SCALES = """[{"name": "Major", "url": "https://pianoscales.org/major.html"},
+    __MOCK_DB_SCALES = """[{"name": "Major", "url": "https://pianoscales.org/major.html"},
     {"name": "Minor", "url": "https://pianoscales.org/minor.html"},
     {"name": "Blues (minor)", "url": "https://pianoscales.org/blues.html"},
     {"name": "Blues (major)", "url": "https://pianoscales.org/blues.html"},
     {"name": "Mixolydian (dom7)", "url": "https://pianoscales.org/mixolydian.html"},
     {"name": "Chromatic", "url": "https://www.pianoscales.org/chromatic.html"}]"""
 
-    MOCK_DB_HANON = """[{"name": "1",
+    __MOCK_DB_HANON = """[{"name": "1",
      "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-1/"},
     {"name": "2", "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-2/"},
     {"name": "3", "url": "https://www.hanon-online.com/the-virtuoso-pianist-part-i/hanon-exercise-n-3/"},
@@ -49,7 +49,7 @@ class Storage:
     {"name": "29", "url": "https://galaxymusicnotes.com/products/hanon-exercise-no-29"},
     {"name": "30", "url": "https://galaxymusicnotes.com/products/hanon-exercise-no-30"}]"""
 
-    MOCK_DB_BLUES = """[{"name": "Major Blues 12-Bar Form & Harmony, The First Lesson",
+    __MOCK_DB_BLUES = """[{"name": "Major Blues 12-Bar Form & Harmony, The First Lesson",
     "url": "https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-the-first-lesson/"},
     {"name": "Major Blues 12-Bar Form & Harmony, Variation #2",
     "url": "https://piano-ology.com/blues-school-major-blues-12-bar-form-harmony-variation-2/"},
@@ -78,14 +78,14 @@ class Storage:
         return conn.get_bucket('exercises')
 
     @staticmethod
-    def get_data_as_json(key):
+    def __get_data_as_json(key):
         if os.environ.get('MOCK_DB'):
             if key == Storage.STORAGE_KEY_SCALES:
-                content = json.loads(Storage.MOCK_DB_SCALES)
+                content = json.loads(Storage.__MOCK_DB_SCALES)
             elif key == Storage.STORAGE_KEY_HANON:
-                content = json.loads(Storage.MOCK_DB_HANON)
+                content = json.loads(Storage.__MOCK_DB_HANON)
             else:
-                content = json.loads(Storage.MOCK_DB_BLUES)
+                content = json.loads(Storage.__MOCK_DB_BLUES)
         else:
             bucket = Storage.__storage_bucket()
             content_storage = Key(bucket)
@@ -94,14 +94,14 @@ class Storage:
         return content
 
     @staticmethod
-    def set_content_from_string(key, content):
+    def __set_content_from_string(key, content):
         if os.environ.get('MOCK_DB'):
             if key == Storage.STORAGE_KEY_SCALES:
-                Storage.MOCK_DB_SCALES = content
+                Storage.__MOCK_DB_SCALES = content
             elif key == Storage.STORAGE_KEY_HANON:
-                Storage.MOCK_DB_HANON = content
+                Storage.__MOCK_DB_HANON = content
             else:
-                Storage.MOCK_DB_BLUES = content
+                Storage.__MOCK_DB_BLUES = content
         else:
             bucket = Storage.__storage_bucket()
             content_storage = Key(bucket)
@@ -110,7 +110,7 @@ class Storage:
 
     @staticmethod
     def get_scales_as_json():
-        return Storage.get_data_as_json(Storage.STORAGE_KEY_SCALES)
+        return Storage.__get_data_as_json(Storage.STORAGE_KEY_SCALES)
 
     @staticmethod
     def get_scales_as_string():
@@ -118,11 +118,11 @@ class Storage:
 
     @staticmethod
     def set_scales_from_string(scales):
-        Storage.set_content_from_string(Storage.STORAGE_KEY_SCALES, scales)
+        Storage.__set_content_from_string(Storage.STORAGE_KEY_SCALES, scales)
 
     @staticmethod
     def get_hanon_as_json():
-        return Storage.get_data_as_json(Storage.STORAGE_KEY_HANON)
+        return Storage.__get_data_as_json(Storage.STORAGE_KEY_HANON)
 
     @staticmethod
     def get_hanon_as_string():
@@ -130,11 +130,11 @@ class Storage:
 
     @staticmethod
     def set_hanon_from_string(hanon):
-        Storage.set_content_from_string(Storage.STORAGE_KEY_HANON, hanon)
+        Storage.__set_content_from_string(Storage.STORAGE_KEY_HANON, hanon)
 
     @staticmethod
     def get_blues_as_json():
-        return Storage.get_data_as_json(Storage.STORAGE_KEY_BLUES)
+        return Storage.__get_data_as_json(Storage.STORAGE_KEY_BLUES)
 
     @staticmethod
     def get_blues_as_string():
@@ -142,4 +142,4 @@ class Storage:
 
     @staticmethod
     def set_blues_from_string(blues):
-        Storage.set_content_from_string(Storage.STORAGE_KEY_BLUES, blues)
+        Storage.__set_content_from_string(Storage.STORAGE_KEY_BLUES, blues)
