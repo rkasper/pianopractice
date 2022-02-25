@@ -33,6 +33,8 @@ def did_token_required(func):
                 else:
                     did_token = request.form.get('didt')
                 print('inject_did_token: did_token: ' + str(did_token))
+                auth_header = request.headers.get('Authorization')
+                print('inject_did_token: auth_header: ' + str(auth_header))
 
                 magic = Magic(api_secret_key=__get_magic_secret_key())
 
