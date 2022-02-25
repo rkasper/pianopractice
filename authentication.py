@@ -11,15 +11,15 @@ def get_magic_secret_key():
 
 def with_magic_publishable_api_key(func):
     @wraps(func)
-    def wrap():
+    def inject_magic_publishable_api_key():
         return func(os.environ['MAGIC_PUBLISHABLE_API_KEY'])
 
-    return wrap
+    return inject_magic_publishable_api_key
 
 
 def did_token_required(func):
     @wraps(func)
-    def wrap():
+    def inject_did_token():
         test_mode = os.getenv('TEST_MODE')
         did_token = ''  # Because even if we're in test-mode, we pass did_token to the render template.
         if test_mode is None or test_mode == 'FALSE':
@@ -58,4 +58,4 @@ def did_token_required(func):
         else:
             return func(did_token)
 
-    return wrap
+    return inject_did_token
