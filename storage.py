@@ -78,8 +78,12 @@ class Storage:
         return conn.get_bucket('exercises')
 
     @staticmethod
+    def __use_mock_db():
+        return os.environ.get('MOCK_DB') == 'true'
+
+    @staticmethod
     def __get_data_as_json(key):
-        if os.environ.get('MOCK_DB'):
+        if Storage.__use_mock_db():
             if key == Storage.STORAGE_KEY_SCALES:
                 content = json.loads(Storage.__MOCK_DB_SCALES)
             elif key == Storage.STORAGE_KEY_HANON:
@@ -90,12 +94,13 @@ class Storage:
             bucket = Storage.__storage_bucket()
             content_storage = Key(bucket)
             content_storage.key = key
-            content = json.loads(content_storage.get_contents_as_string())
+            content_as_string = content_storage.get_contents_as_string()
+            content = json.loads(content_as_string)
         return content
 
     @staticmethod
     def __set_content_from_string(key, content):
-        if os.environ.get('MOCK_DB'):
+        if Storage.__use_mock_db():
             if key == Storage.STORAGE_KEY_SCALES:
                 Storage.__MOCK_DB_SCALES = content
             elif key == Storage.STORAGE_KEY_HANON:
