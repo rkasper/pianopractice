@@ -1,3 +1,4 @@
+import json
 import unittest
 
 # I want this tool to tell me which old exercise to practice, and the sequence of keys to practice them in.
@@ -5,9 +6,10 @@ import unittest
 import validators as validators
 
 from pianopractice import PianoPractice
+from storage import Storage
 
 
-class MyTestCase(unittest.TestCase):
+class PianoPracticeTests(unittest.TestCase):
     def test_unittestsRunProperly(self):
         self.assertTrue(True)
 
@@ -44,7 +46,7 @@ class MyTestCase(unittest.TestCase):
         self.assertTrue('hanon' in exercises_to_practice[1]['url'])
         self.assertTrue('blues' in exercises_to_practice[2]['url'])
 
-    def test_rand_list_of_keys(self):
+    def test_randomListOfKeys(self):
         keys: [str] = PianoPractice.keys_to_practice()
         self.assertEqual(12, len(keys))
         self.assertIn('A', keys)
@@ -54,6 +56,36 @@ class MyTestCase(unittest.TestCase):
         keys2: [str] = PianoPractice.keys_to_practice()
         self.assertNotEqual(keys, keys2)
 
+    def test_canGetScalesFromStorage(self):
+        content_as_string = Storage.get_scales_as_string()
+        self.assertTrue(len(content_as_string) > 0)
+
+        content_as_json = Storage.get_scales_as_json()
+        self.assertTrue(len(content_as_json) > 0)
+
+        self.assertEqual(json.loads(content_as_string), content_as_json)
+
+    def test_canGetHanonFromStorage(self):
+        content_as_string = Storage.get_hanon_as_string()
+        self.assertTrue(len(content_as_string) > 0)
+
+        content_as_json = Storage.get_hanon_as_json()
+        self.assertTrue(len(content_as_json) > 0)
+
+        self.assertEqual(json.loads(content_as_string), content_as_json)
+
+    def test_canGetBluesFromStorage(self):
+        content_as_string = Storage.get_blues_as_string()
+        self.assertTrue(len(content_as_string) > 0)
+
+        content_as_json = Storage.get_blues_as_json()
+        self.assertTrue(len(content_as_json) > 0)
+
+        self.assertEqual(json.loads(content_as_string), content_as_json)
+
+    # TODO: test set scales
+    # TODO: test set hanon
+    # TODO: test set blues
 
 if __name__ == '__main__':
     unittest.main()

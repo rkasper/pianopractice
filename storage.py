@@ -70,7 +70,7 @@ class Storage:
     {"name": "Comping Pattern #3", "url": "https://piano-ology.com/blues-school-comping-pattern-3/"}]"""
 
     @staticmethod
-    def storage_bucket():
+    def __storage_bucket():
         apikey = os.environ['CELLAR_ADDON_KEY_ID']
         secretkey = os.environ['CELLAR_ADDON_KEY_SECRET']
         host = os.environ['CELLAR_ADDON_HOST']
@@ -87,7 +87,7 @@ class Storage:
             else:
                 content = json.loads(Storage.MOCK_DB_BLUES)
         else:
-            bucket = Storage.storage_bucket()
+            bucket = Storage.__storage_bucket()
             content_storage = Key(bucket)
             content_storage.key = key
             content = json.loads(content_storage.get_contents_as_string())
@@ -95,7 +95,7 @@ class Storage:
 
     @staticmethod
     def set_content_from_string(key, content):
-        bucket = Storage.storage_bucket()
+        bucket = Storage.__storage_bucket()
         content_storage = Key(bucket)
         content_storage.key = key
         content_storage.set_contents_from_string(content)
