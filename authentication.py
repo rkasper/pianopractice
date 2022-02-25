@@ -6,13 +6,14 @@ from magic_admin import Magic
 
 
 def get_magic_secret_key():
-    return os.environ['MAGIC_SECRET_KEY']
+    return os.environ.get('MAGIC_SECRET_KEY')
 
 
 def with_magic_publishable_api_key(func):
     @wraps(func)
     def inject_magic_publishable_api_key():
-        return func(os.environ['MAGIC_PUBLISHABLE_API_KEY'])
+        return func(os.environ.get('MAGIC_PUBLISHABLE_API_KEY',
+                                   'Environment variable MAGIC_PUBLISHABLE_API_KEY is not set.'))
 
     return inject_magic_publishable_api_key
 
