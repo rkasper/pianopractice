@@ -1,6 +1,7 @@
 from boto.s3.key import Key
 
-from pianopractice import PianoPractice, storage_bucket
+from pianopractice import PianoPractice
+from storage import storage_bucket
 
 if __name__ == '__main__':
     b = storage_bucket()

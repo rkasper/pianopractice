@@ -3,9 +3,7 @@ import json
 import os
 import random
 
-from boto.s3.connection import S3Connection
-from boto.s3.key import Key
-
+from storage import Storage
 
 SCALES_MOCK_DB = """[{"name": "Major", "url": "https://pianoscales.org/major.html"},
 {"name": "Minor", "url": "https://pianoscales.org/minor.html"},
@@ -67,26 +65,7 @@ BLUES_MOCK_DB = """[{"name": "Major Blues 12-Bar Form & Harmony, The First Lesso
 {"name": "Comping Pattern #3", "url": "https://piano-ology.com/blues-school-comping-pattern-3/"}]"""
 
 
-def storage_bucket():
-    apikey = os.environ['CELLAR_ADDON_KEY_ID']
-    secretkey = os.environ['CELLAR_ADDON_KEY_SECRET']
-    host = os.environ['CELLAR_ADDON_HOST']
-    conn = S3Connection(aws_access_key_id=apikey, aws_secret_access_key=secretkey, host=host)
-    return conn.get_bucket('exercises')
-
-def read_from_storage(storage_key):
-    b = storage_bucket()
-    scales = Key(b)
-    scales.key = storage_key
-    content = scales.get_contents_as_string()
-    return json.loads(content)
-
-
 class PianoPractice:
-    STORAGE_KEY_SCALES = 'scales'
-    STORAGE_KEY_HANON = 'hanon'
-    STORAGE_KEY_BLUES = 'blues'
-
     NAME = 'name'
     URL = 'url'
 
@@ -97,9 +76,12 @@ class PianoPractice:
             hanon = json.loads(HANON_MOCK_DB)
             blues = json.loads(BLUES_MOCK_DB)
         else:
-            scales = read_from_storage(PianoPractice.STORAGE_KEY_SCALES)
-            hanon = read_from_storage(PianoPractice.STORAGE_KEY_HANON)
-            blues = read_from_storage(PianoPractice.STORAGE_KEY_BLUES)
+            scales = Storage.get_scales_as_json()
+            hanon = Storage.get_hanon_as_json()
+            blues = Storage.get_blues_as_json()
+        print('PianoPractice.exercises_to_practice: scales: ' + str(scales))
+        print('PianoPractice.exercises_to_practice: type(scales): ' + str(type(scales)))
+        print('PianoPractice.exercises_to_practice: (random.choice(scales)): ' + str((random.choice(scales))))
         return [(random.choice(scales)), (random.choice(hanon)), (random.choice(blues))]
 
     @staticmethod

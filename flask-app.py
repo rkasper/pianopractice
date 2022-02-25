@@ -1,11 +1,11 @@
-import json
 import os
 
 from boto.s3.key import Key
 from flask import Flask, render_template, request
 
 from Authentication import did_token_required
-from pianopractice import PianoPractice, storage_bucket
+from pianopractice import PianoPractice
+from storage import Storage
 
 app = Flask(__name__)
 
@@ -13,7 +13,9 @@ app = Flask(__name__)
 @app.route('/', methods=['GET'])
 def index():
     exercises = PianoPractice.exercises_to_practice()
+    print('index: exercises: ' + str(exercises))
     scale = exercises[0]
+    print('index: scale: ' + str(scale))
     hanon = exercises[1]
     blues = exercises[2]
     keys = PianoPractice.keys_to_practice()
@@ -41,33 +43,23 @@ def admin(did_token):
     # For this app, all we have to do is validate the token, which we did. Given a valid token, render the
     # auth-protected page.
 
-    # TODO flask-app shouldn't have to know anything about S3 storage. Encapsulate it elsewhere.
-
-    b = storage_bucket()
-
-    scales_storage = Key(b)
-    scales_storage.key = PianoPractice.STORAGE_KEY_SCALES
-
-    hanon_storage = Key(b)
-    hanon_storage.key = PianoPractice.STORAGE_KEY_HANON
-
-    blues_storage = Key(b)
-    blues_storage.key = PianoPractice.STORAGE_KEY_BLUES
+    bucket = Storage.storage_bucket()
+    scales_storage = Key(bucket)
+    hanon_storage = Key(bucket)
+    blues_storage = Key(bucket)
 
     if request.method == 'POST':  # The web form supplied the data. Store the new data.
-        scales = str(request.form.get(PianoPractice.STORAGE_KEY_SCALES))
-        hanon = str(request.form.get(PianoPractice.STORAGE_KEY_HANON))
-        blues = str(request.form.get(PianoPractice.STORAGE_KEY_BLUES))
+        scales = str(request.form.get(Storage.STORAGE_KEY_SCALES))
+        hanon = str(request.form.get(Storage.STORAGE_KEY_HANON))
+        blues = str(request.form.get(Storage.STORAGE_KEY_BLUES))
 
         scales_storage.set_contents_from_string(scales)
         hanon_storage.set_contents_from_string(hanon)
         blues_storage.set_contents_from_string(blues)
     else:  # Get the data from storage.
-        # json.dumps(json.loads(...)) seems redundant, but it's not. It's a hack that converts the stored data from a
-        # b'...' kind of string to a plain-old string. I bet there's a better way, but this is adequate for now.
-        scales = str(json.dumps(json.loads(scales_storage.get_contents_as_string())))
-        hanon = str(json.dumps(json.loads(hanon_storage.get_contents_as_string())))
-        blues = str(json.dumps(json.loads(blues_storage.get_contents_as_string())))
+        scales = Storage.get_scales_as_string()
+        hanon = Storage.get_hanon_as_string()
+        blues = Storage.get_blues_as_string()
 
     print('admin: returning render_template')
     return render_template("admin.html",
