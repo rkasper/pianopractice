@@ -6,14 +6,13 @@ from magic_admin import Magic
 
 
 def get_magic_secret_key():
-    magic_secret_key = os.environ['MAGIC_SECRET_KEY']
-    return magic_secret_key
+    return os.environ['MAGIC_SECRET_KEY']
 
 
 def with_magic_publishable_api_key(func):
     @wraps(func)
     def wrap():
-        return func(get_magic_secret_key())
+        return func(os.environ['MAGIC_PUBLISHABLE_API_KEY'])
 
     return wrap
 
@@ -34,6 +33,7 @@ def did_token_required(func):
                     did_token = request.form.get('didt')
 
                 magic = Magic(api_secret_key=get_magic_secret_key())
+                print()
 
                 # Validate the did_token
                 magic.Token.validate(did_token)
@@ -53,7 +53,7 @@ def did_token_required(func):
 
                 return func(did_token)
             except Exception as e:
-                print('admin: authorization failed: ' + format(e))
+                print('did_token_required: authorization failed: ' + format(e))
                 return redirect(url_for("login"))
         else:
             return func(did_token)
