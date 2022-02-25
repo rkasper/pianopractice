@@ -10,7 +10,7 @@ from pianopractice import PianoPractice
 from storage import Storage
 
 
-class PianoPracticeTests(unittest.TestCase):
+class BizLogicTests(unittest.TestCase):
     def test_unittestsRunProperly(self):
         self.assertTrue(True)
 
@@ -57,6 +57,8 @@ class PianoPracticeTests(unittest.TestCase):
         keys2: [str] = PianoPractice.keys_to_practice()
         self.assertNotEqual(keys, keys2)
 
+
+class StorageTests(unittest.TestCase):
     def test_canGetScalesFromStorage(self):
         content_as_string = Storage.get_scales_as_string()
         self.assertTrue(len(content_as_string) > 0)
@@ -109,5 +111,13 @@ class PianoPracticeTests(unittest.TestCase):
         Storage.set_blues_from_string(original_content)
 
 
+# def suite():
+#     suite = unittest.TestSuite()
+#     suite.addTest(PianoPracticeTests())
+#     return suite
+
+
 if __name__ == '__main__':
     unittest.main()
+    # runner = unittest.TextTestRunner()
+    # runner.run(suite())
