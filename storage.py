@@ -95,10 +95,18 @@ class Storage:
 
     @staticmethod
     def set_content_from_string(key, content):
-        bucket = Storage.__storage_bucket()
-        content_storage = Key(bucket)
-        content_storage.key = key
-        content_storage.set_contents_from_string(content)
+        if os.environ.get('MOCK_DB'):
+            if key == Storage.STORAGE_KEY_SCALES:
+                Storage.MOCK_DB_SCALES = content
+            elif key == Storage.STORAGE_KEY_HANON:
+                Storage.MOCK_DB_HANON = content
+            else:
+                Storage.MOCK_DB_BLUES = content
+        else:
+            bucket = Storage.__storage_bucket()
+            content_storage = Key(bucket)
+            content_storage.key = key
+            content_storage.set_contents_from_string(content)
 
     @staticmethod
     def get_scales_as_json():

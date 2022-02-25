@@ -2,6 +2,7 @@ import json
 import unittest
 
 # I want this tool to tell me which old exercise to practice, and the sequence of keys to practice them in.
+from os import environ
 
 import validators as validators
 
@@ -83,9 +84,30 @@ class PianoPracticeTests(unittest.TestCase):
 
         self.assertEqual(json.loads(content_as_string), content_as_json)
 
-    # TODO: test set scales
-    # TODO: test set hanon
-    # TODO: test set blues
+    @unittest.skipUnless(environ.get('MOCK_DB'), "Only test with mock DB - don't break the production DB.")
+    def test_canSetScalesToStorage(self):
+        original_content = Storage.get_scales_as_string()
+        new_content = '["poop"]'
+        Storage.set_scales_from_string(new_content)
+        self.assertEqual(new_content, Storage.get_scales_as_string())
+        Storage.set_scales_from_string(original_content)
+
+    @unittest.skipUnless(environ.get('MOCK_DB'), "Only test with mock DB - don't break the production DB.")
+    def test_canSetHanonToStorage(self):
+        original_content = Storage.get_hanon_as_string()
+        new_content = '["poop"]'
+        Storage.set_hanon_from_string(new_content)
+        self.assertEqual(new_content, Storage.get_hanon_as_string())
+        Storage.set_hanon_from_string(original_content)
+
+    @unittest.skipUnless(environ.get('MOCK_DB'), "Only test with mock DB - don't break the production DB.")
+    def test_canSetBluesToStorage(self):
+        original_content = Storage.get_blues_as_string()
+        new_content = '["poop"]'
+        Storage.set_blues_from_string(new_content)
+        self.assertEqual(new_content, Storage.get_blues_as_string())
+        Storage.set_blues_from_string(original_content)
+
 
 if __name__ == '__main__':
     unittest.main()
