@@ -16,9 +16,6 @@ class Storage:
         bucket = Storage.storage_bucket()
         scales_storage = Key(bucket)
         scales_storage.key = key
-        # json.dumps(json.loads(...)) seems redundant, but it's not. It's a hack that converts the stored data from a
-        # b'...' kind of string to a plain-old string. I bet there's a better way, but this is adequate for now.
-        #return json.dumps(json.loads(scales_storage.get_contents_as_string()))
         return json.loads(scales_storage.get_contents_as_string())
 
 
@@ -32,6 +29,30 @@ class Storage:
     @staticmethod
     def get_scales_as_string():
         return json.dumps(Storage.get_scales_as_json())
+
+
+    @staticmethod
+    def set_scales_from_string(scales):
+        bucket = Storage.storage_bucket()
+        scales_storage = Key(bucket)
+        scales_storage.key = Storage.STORAGE_KEY_SCALES
+        scales_storage.set_contents_from_string(scales)
+
+
+    @staticmethod
+    def set_hanon_from_string(hanon):
+        bucket = Storage.storage_bucket()
+        scales_storage = Key(bucket)
+        scales_storage.key = Storage.STORAGE_KEY_HANON
+        scales_storage.set_contents_from_string(hanon)
+
+
+    @staticmethod
+    def set_blues_from_string(blues):
+        bucket = Storage.storage_bucket()
+        scales_storage = Key(bucket)
+        scales_storage.key = Storage.STORAGE_KEY_HANON
+        scales_storage.set_contents_from_string(blues)
 
 
     @staticmethod

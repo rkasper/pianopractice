@@ -37,31 +37,19 @@ def login():
 @app.route('/admin', methods=['GET', 'POST'])
 @did_token_required
 def admin(did_token):
-    print('admin:')
-    print('admin: did_token: ' + did_token)
-
-    # For this app, all we have to do is validate the token, which we did. Given a valid token, render the
-    # auth-protected page.
-
-    bucket = Storage.storage_bucket()
-    scales_storage = Key(bucket)
-    hanon_storage = Key(bucket)
-    blues_storage = Key(bucket)
-
     if request.method == 'POST':  # The web form supplied the data. Store the new data.
         scales = str(request.form.get(Storage.STORAGE_KEY_SCALES))
         hanon = str(request.form.get(Storage.STORAGE_KEY_HANON))
         blues = str(request.form.get(Storage.STORAGE_KEY_BLUES))
 
-        scales_storage.set_contents_from_string(scales)
-        hanon_storage.set_contents_from_string(hanon)
-        blues_storage.set_contents_from_string(blues)
+        Storage.set_scales_from_string(scales)
+        Storage.set_hanon_from_string(hanon)
+        Storage.set_blues_from_string(blues)
     else:  # Get the data from storage.
         scales = Storage.get_scales_as_string()
         hanon = Storage.get_hanon_as_string()
         blues = Storage.get_blues_as_string()
 
-    print('admin: returning render_template')
     return render_template("admin.html",
                            didt=did_token,
                            scales=scales,
