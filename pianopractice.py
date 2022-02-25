@@ -79,9 +79,6 @@ class PianoPractice:
             scales = Storage.get_scales_as_json()
             hanon = Storage.get_hanon_as_json()
             blues = Storage.get_blues_as_json()
-        print('PianoPractice.exercises_to_practice: scales: ' + str(scales))
-        print('PianoPractice.exercises_to_practice: type(scales): ' + str(type(scales)))
-        print('PianoPractice.exercises_to_practice: (random.choice(scales)): ' + str((random.choice(scales))))
         return [(random.choice(scales)), (random.choice(hanon)), (random.choice(blues))]
 
     @staticmethod
