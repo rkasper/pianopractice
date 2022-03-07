@@ -1,20 +1,12 @@
 import unittest
-import warnings
 
 import validators as validators
 
 from pianopractice import PianoPractice
+from shared_test_code import ignore_warnings
 
 
 class PianoPracticeTests(unittest.TestCase):
-    def ignore_warnings(test_method):
-        def test_run(self, *args, **kwargs):
-            with warnings.catch_warnings():
-                warnings.simplefilter('ignore')
-                test_method(self, *args, **kwargs)
-
-        return test_run
-
     def test_unittestsRunProperly(self):
         self.assertTrue(True)
 

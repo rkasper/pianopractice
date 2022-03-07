@@ -1,20 +1,12 @@
 import json
 import unittest
-import warnings
 from os import environ
 
+from shared_test_code import ignore_warnings
 from storage import Storage
 
 
 class StorageTests(unittest.TestCase):
-    def ignore_warnings(test_method):
-        def test_run(self, *args, **kwargs):
-            with warnings.catch_warnings():
-                warnings.simplefilter('ignore')
-                test_method(self, *args, **kwargs)
-
-        return test_run
-
     @ignore_warnings
     def test_canGetScalesFromStorage(self):
         content_as_string = Storage.get_scales_as_string()
