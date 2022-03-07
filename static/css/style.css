@@ -83,8 +83,7 @@
 .exercises-row1 li img {
 	margin-bottom: 33px;
 }
-.exercises-row1 li a,
-.exercises-row1 li {
+.exercises-row1 li a{
 	text-align: center;
 	font-family: Montserrat;
 	font-weight: 500;
@@ -93,6 +92,17 @@
 	letter-spacing: 0.02em;
 	color: #95AB68;
 	text-decoration: underline;
+	transition: .2s all;
+}
+.exercises-row1 li {
+	text-align: center;
+	font-family: Montserrat;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 26px;
+	letter-spacing: 0.02em;
+	color: #95AB68;
+	/*text-decoration: underline;*/
 	transition: .2s all;
 }
 .exercises-row1 li a:hover {
