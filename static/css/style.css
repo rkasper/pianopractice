@@ -162,6 +162,24 @@
 .randomize-btn:hover {
 	background: #28292D;
 }
+.admin-submit-btn {
+	font-family: Montserrat;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 34px;
+	letter-spacing: 0.1em;
+	color: #E6DED1;
+	text-transform: uppercase;
+	background: #44552A;
+	border-radius: 10px;
+	padding: 18px 38px 17px;
+	border: none;
+	margin: 0 auto;
+	display: block;
+}
+.admin-submit-btn:hover {
+	background: #a3aab4;
+}
 .footer {
 	text-align: center;
 	padding-top: 20px;
