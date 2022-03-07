@@ -25,5 +25,7 @@ class AuthenticationTests(unittest.TestCase):
             self.assertIsNotNone(did_token)
             self.assertIsInstance(did_token, str)
         except RuntimeError as e:
-            # We expect this to happen when running outside of Flask context.
+            # We expect there to be an error when running as a unit test, outside of Flask context. When there is no
+            # login token, the @did_token_required wrapper forwards to the login Flask route. Outside of Flask, you
+            # can't do that, so there's a RuntimeError - again, the expected test result.
             pass

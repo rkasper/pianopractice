@@ -56,7 +56,9 @@ def did_token_required(func):
 
                 return func(did_token)
             except Exception as e:
-                print('did_token_required: authorization failed: ' + format(e))
+                # Uncomment the following print statement to help debug authentication problems. Otherwise leave it
+                # commented-out so test results are easy to read.
+                # print('did_token_required: authorization failed: ' + format(e))
                 # TODO Consider changing this return statement - it depends on Flask running, which gives us a
                 # dependency we don't necessarily want. It's not so bad, because we only invoke authentication within
                 # Flask, but it makes it harder to test, if nothing else.
