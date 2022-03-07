@@ -45,7 +45,6 @@ class StorageTests(unittest.TestCase):
 
         self.assertEqual(json.loads(content_as_string), content_as_json)
 
-    @ignore_warnings
     @unittest.skipUnless(environ.get('MOCK_DB'), "Only test with mock DB - don't break the production DB.")
     def test_canSetScalesToStorage(self):
         original_content = Storage.get_scales_as_string()
@@ -54,7 +53,6 @@ class StorageTests(unittest.TestCase):
         self.assertEqual(new_content, Storage.get_scales_as_string())
         Storage.set_scales_from_string(original_content)
 
-    @ignore_warnings
     @unittest.skipUnless(environ.get('MOCK_DB'), "Only test with mock DB - don't break the production DB.")
     def test_canSetHanonToStorage(self):
         original_content = Storage.get_hanon_as_string()
@@ -63,7 +61,6 @@ class StorageTests(unittest.TestCase):
         self.assertEqual(new_content, Storage.get_hanon_as_string())
         Storage.set_hanon_from_string(original_content)
 
-    @ignore_warnings
     @unittest.skipUnless(environ.get('MOCK_DB'), "Only test with mock DB - don't break the production DB.")
     def test_canSetBluesToStorage(self):
         original_content = Storage.get_blues_as_string()
