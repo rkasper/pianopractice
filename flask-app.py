@@ -2,9 +2,9 @@ import os
 
 from flask import Flask, render_template, request
 
-from authentication import did_token_required, with_magic_publishable_api_key
-from pianopractice import PianoPractice
-from storage import Storage
+from app.authentication import did_token_required, with_magic_publishable_api_key
+from app.pianopractice import PianoPractice
+from app.storage import Storage
 
 app = Flask(__name__)
 

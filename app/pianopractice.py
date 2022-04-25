@@ -1,6 +1,6 @@
 import random
 
-from storage import Storage
+from app.storage import Storage
 
 
 class PianoPractice:
