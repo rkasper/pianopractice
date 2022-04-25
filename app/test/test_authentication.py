@@ -1,6 +1,6 @@
 import unittest
 
-from authentication import with_magic_publishable_api_key, did_token_required
+from app.authentication import with_magic_publishable_api_key, did_token_required
 
 
 @with_magic_publishable_api_key

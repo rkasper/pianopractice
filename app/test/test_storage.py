@@ -3,7 +3,7 @@ import unittest
 from os import environ
 
 from shared_test_code import ignore_warnings
-from storage import Storage
+from app.storage import Storage
 
 
 class StorageTests(unittest.TestCase):
