@@ -12,7 +12,14 @@ class PianoPractice:
         scales = Storage.get_scales_as_json()
         hanon = Storage.get_hanon_as_json()
         blues = Storage.get_blues_as_json()
-        return [(random.choice(scales)), (random.choice(hanon)), (random.choice(blues))]
+
+        random_hanon = (random.choice(hanon))
+        random_start_octave = random.randint(0, 6)
+        random_end_octave = random.randint(random_start_octave + 1, 8)
+        random_hanon[PianoPractice.NAME] = random_hanon[PianoPractice.NAME] + ' (octaves ' + str(random_start_octave)\
+                                           + '-' + str(random_end_octave) + ')'
+
+        return [(random.choice(scales)), random_hanon, (random.choice(blues))]
 
     @staticmethod
     def keys_to_practice() -> [str]:

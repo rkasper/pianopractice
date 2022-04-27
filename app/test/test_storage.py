@@ -2,8 +2,8 @@ import json
 import unittest
 from os import environ
 
-from shared_test_code import ignore_warnings
 from app.storage import Storage
+from shared_test_code import ignore_warnings
 
 
 class StorageTests(unittest.TestCase):
