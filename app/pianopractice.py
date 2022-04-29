@@ -14,8 +14,8 @@ class PianoPractice:
         blues = Storage.get_blues_as_json()
 
         random_hanon = (random.choice(hanon))
-        random_start_octave = random.randint(0, 5)
-        random_end_octave = random.randint(random_start_octave + 1, 8)
+        random_start_octave = random.randint(0, 4)
+        random_end_octave = random.randint(random_start_octave + 2, 7)
         random_hanon[PianoPractice.NAME] = random_hanon[PianoPractice.NAME] + ' (octaves ' + str(random_start_octave)\
                                            + '-' + str(random_end_octave) + ')'
 
