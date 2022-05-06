@@ -43,7 +43,8 @@ class PianoPracticeTests(unittest.TestCase):
 
     def test_hanonExercisesTellMeWhatRangeOfOctavesToPractice(self):
         hanon = PianoPractice.exercises_to_practice()[1]
-        self.assertTrue('(octaves ' in hanon['name'])
+        self.assertTrue('(LH octaves ' in hanon['name'])
+        self.assertTrue(', RH octaves ' in hanon['name'])
 
     @ignore_warnings
     def test_randomListOfKeys(self):
