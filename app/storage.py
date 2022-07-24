@@ -10,6 +10,8 @@ class Storage:
     STORAGE_KEY_HANON = 'hanon'
     STORAGE_KEY_BLUES = 'blues'
 
+    __BUCKETNAME = 'pianoplay-exercises'  # S3 bucket name
+
     __MOCK_DB_SCALES = """[{"name": "Major", "url": "https://pianoscales.org/major.html"},
     {"name": "Minor", "url": "https://pianoscales.org/minor.html"},
     {"name": "Blues (minor)", "url": "https://pianoscales.org/blues.html"},
@@ -75,7 +77,7 @@ class Storage:
         secretkey = os.environ['CELLAR_ADDON_KEY_SECRET']
         host = os.environ['CELLAR_ADDON_HOST']
         conn = S3Connection(aws_access_key_id=apikey, aws_secret_access_key=secretkey, host=host)
-        return conn.get_bucket('exercises')
+        return conn.get_bucket(Storage.__BUCKETNAME)
 
     @staticmethod
     def __use_mock_db():
