@@ -51,7 +51,8 @@ def admin(magic_publishable_api_key):
         else:
             did_token = request.form.get('didt')
 
-        magic = Magic(api_secret_key=magic_publishable_api_key)
+        print('api_secret_key is: ' + __get_magic_secret_key())
+        magic = Magic(api_secret_key=__get_magic_secret_key())
 
         # Validate the did_token
         magic.Token.validate(did_token)
