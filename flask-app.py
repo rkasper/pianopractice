@@ -81,7 +81,8 @@ def admin(magic_publishable_api_key):
     except Exception as e:
         # DID token is invalid. Login.
         #return redirect(url_for("login"))
-        return render_template("login.html")
+        return render_template("login.html",
+                               magic_publishable_api_key=magic_publishable_api_key)
 
 
 
