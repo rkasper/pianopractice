@@ -18,11 +18,11 @@ def with_magic_publishable_api_key(func):
     return inject_magic_publishable_api_key
 
 
-def did_token_required(func):
+def magic_credential_required(func):
     @wraps(func)
     def inject_did_token():
         test_mode = os.getenv('TEST_MODE')
-        did_token = ''  # Because even if we're in test-mode, we pass did_token to the render template.
+        magic_credential = ''  # Because even if we're in test-mode, we pass did_token to the render template.
         if test_mode is None or test_mode == 'FALSE':
             # TODO Rename didt to be magic_credential in the .html files.
             try:
@@ -32,22 +32,22 @@ def did_token_required(func):
                 # better way to stay logged in, but this works well enough for now.
                 if request.method == 'GET':
                     print('GET')
-                    did_token = request.args.get('didt')
-                    print('from didt: did_token is ' + str(did_token))
-                    if did_token is None:
-                        did_token = request.args.get('magic_credential')
-                    print('from magic_credential: did_token is ' + str(did_token))
+                    magic_credential = request.args.get('didt')
+                    print('from didt: did_token is ' + str(magic_credential))
+                    if magic_credential is None:
+                        magic_credential = request.args.get('magic_credential')
+                    print('from magic_credential: magic_credential is ' + str(magic_credential))
                 else:
                     print('POST')
-                    did_token = request.form.get('didt')
-                    print('from didt: did_token is ' + str(did_token))
-                    if did_token is None:
-                        did_token = request.args.get('magic_credential')
-                    print('from magic_credential: did_token is ' + str(did_token))
+                    magic_credential = request.form.get('didt')
+                    print('from didt: did_token is ' + str(magic_credential))
+                    if magic_credential is None:
+                        magic_credential = request.args.get('magic_credential')
+                    print('from magic_credential: magic_credential is ' + str(magic_credential))
 
                 # Validate the did_token
                 magic = Magic(api_secret_key=__get_magic_secret_key())
-                magic.Token.validate(did_token)
+                magic.Token.validate(magic_credential)
                 print('--- did_token is valid ---')
 
                 # Sample code: The Magic docs suggest using issuer or public_address as the key for storing and
@@ -63,7 +63,7 @@ def did_token_required(func):
                 # email = magic_response.data['email']
                 # print('callback: email: ' + email)
 
-                return func(did_token)
+                return func(magic_credential)
             except Exception as e:
                 # Uncomment the following print statement to help debug authentication problems. Otherwise leave it
                 # commented-out so test results are easy to read.
@@ -74,6 +74,6 @@ def did_token_required(func):
                 print(e)
                 return redirect(url_for("login"))
         else:
-            return func(did_token)
+            return func(magic_credential)
 
     return inject_did_token

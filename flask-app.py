@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 
-from app.authentication import did_token_required, with_magic_publishable_api_key
+from app.authentication import magic_credential_required, with_magic_publishable_api_key
 from app.pianopractice import PianoPractice
 from app.storage import Storage
 
@@ -29,8 +29,8 @@ def login(magic_publishable_api_key):
 
 
 @app.route('/admin', methods=['GET', 'POST'])
-@did_token_required
-def admin(did_token):
+@magic_credential_required
+def admin(magic_credential):
     print('admin')
     if request.method == 'POST':  # The web form supplied the data. Store the new data.
         scales = str(request.form.get(Storage.STORAGE_KEY_SCALES))
@@ -46,7 +46,7 @@ def admin(did_token):
         blues = Storage.get_blues_as_string()
 
     return render_template("admin.html",
-                           didt=did_token,
+                           magic_credential=magic_credential,
                            scales=scales,
                            hanon=hanon,
                            blues=blues)

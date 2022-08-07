@@ -1,6 +1,6 @@
 import unittest
 
-from app.authentication import with_magic_publishable_api_key, did_token_required
+from app.authentication import with_magic_publishable_api_key, magic_credential_required
 
 
 @with_magic_publishable_api_key
@@ -8,7 +8,7 @@ def key(magic_publishable_api_key):
     return magic_publishable_api_key
 
 
-@did_token_required
+@magic_credential_required
 def token(did_token):
     return did_token
 
