@@ -42,7 +42,7 @@ def magic_credential_required(func):
                     magic_credential = request.form.get('didt')
                     print('from didt: did_token is ' + str(magic_credential))
                     if magic_credential is None:
-                        magic_credential = request.args.get('magic_credential')
+                        magic_credential = request.form.get('magic_credential')
                     print('from magic_credential: magic_credential is ' + str(magic_credential))
 
                 # Validate the did_token
