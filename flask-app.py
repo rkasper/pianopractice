@@ -56,6 +56,7 @@ def admin(magic_publishable_api_key):
 
         # Validate the did_token
         magic.Token.validate(did_token)
+        print('--- did_token is valid ---')
 
         # DID token is valid - go ahead and render the admin page
         if request.method == 'POST':  # The web form supplied the data. Store the new data.
@@ -81,6 +82,7 @@ def admin(magic_publishable_api_key):
     except Exception as e:
         # DID token is invalid. Login.
         #return redirect(url_for("login"))
+        print('--- did_token is invalid ---')
         return render_template("login.html",
                                magic_publishable_api_key=magic_publishable_api_key)
 
