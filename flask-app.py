@@ -47,14 +47,22 @@ def admin(magic_publishable_api_key):
         # We're passing the auth token to the form, and back from the form to this route. There's probably a
         # better way to stay logged in, but this works well enough for now.
         if request.method == 'GET':
+            print('GET')
             did_token = request.args.get('didt')
+            print('from didt: did_token is ' + str(did_token))
+            if (did_token == None):
+                did_token = request.args.get('magic_credential')
+            print('from magic_credential: did_token is ' + str(did_token))
         else:
+            print('POST')
             did_token = request.form.get('didt')
-
-        print('api_secret_key is: ' + __get_magic_secret_key())
-        magic = Magic(api_secret_key=__get_magic_secret_key())
+            print('from didt: did_token is ' + str(did_token))
+            if (did_token == None):
+                did_token = request.args.get('magic_credential')
+            print('from magic_credential: did_token is ' + str(did_token))
 
         # Validate the did_token
+        magic = Magic(api_secret_key=__get_magic_secret_key())
         magic.Token.validate(did_token)
         print('--- did_token is valid ---')
 
@@ -82,6 +90,7 @@ def admin(magic_publishable_api_key):
     except Exception as e:
         # DID token is invalid. Login.
         #return redirect(url_for("login"))
+        print(e)
         print('--- did_token is invalid ---')
         return render_template("login.html",
                                magic_publishable_api_key=magic_publishable_api_key)
