@@ -3,7 +3,6 @@ from functools import wraps
 
 from flask import request, redirect, url_for, session
 from magic_admin import Magic
-from magic_admin.utils.http import parse_authorization_header_value
 
 
 def __get_magic_secret_key():
@@ -22,15 +21,9 @@ def with_magic_publishable_api_key(func):
 def magic_credential_required(func):
     @wraps(func)
     def inject_did_token():
-        # print(request.headers.get('X-Auth-TOken'))
-        # did_token = parse_authorization_header_value(
-        #     request.headers.get('Authorization'),
-        # )
-        # print('--- Magic''s way: ' + str(did_token))
-
         test_mode = os.getenv('TEST_MODE')
         print("""session: {}""".format(session))
-        magic_credential = session.get('magic_credential')  # Because even if we're in test-mode, we pass did_token to the render template.
+        magic_credential = session.get('magic_credential')
         print("""magic_credential from the session: {}""".format(magic_credential))
         if test_mode is None or test_mode == 'FALSE':
             try:
