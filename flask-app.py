@@ -6,6 +6,10 @@ from app.storage import Storage
 
 app = Flask(__name__)
 
+# TODO Make this secret (in an environment variable), or completely random at run-time
+# https://stackoverflow.com/questions/51436382/runtimeerror-the-session-is-unavailable-because-no-secret-key-was-set-set-the
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
 
 @app.route('/', methods=['GET'])
 def index():

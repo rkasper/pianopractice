@@ -1,8 +1,9 @@
 import os
 from functools import wraps
 
-from flask import request, redirect, url_for
+from flask import request, redirect, url_for, session
 from magic_admin import Magic
+from magic_admin.utils.http import parse_authorization_header_value
 
 
 def __get_magic_secret_key():
@@ -21,33 +22,43 @@ def with_magic_publishable_api_key(func):
 def magic_credential_required(func):
     @wraps(func)
     def inject_did_token():
-        test_mode = os.getenv('TEST_MODE')
-        magic_credential = ''  # Because even if we're in test-mode, we pass did_token to the render template.
-        if test_mode is None or test_mode == 'FALSE':
-            # TODO Rename didt to be magic_credential in the .html files.
-            try:
-                # The login authorization token from Magic is either did_token or magic_credential. magic_credential
-                # seems to be the parameter to look for today; did_token worked in the past.
-                # We're passing the auth token to the form, and back from the form to this route. There's probably a
-                # better way to stay logged in, but this works well enough for now.
-                if request.method == 'GET':
-                    print('GET')
-                    magic_credential = request.args.get('didt')
-                    print('from didt: did_token is ' + str(magic_credential))
-                    if magic_credential is None:
-                        magic_credential = request.args.get('magic_credential')
-                    print('from magic_credential: magic_credential is ' + str(magic_credential))
-                else:
-                    print('POST')
-                    magic_credential = request.form.get('didt')
-                    print('from didt: did_token is ' + str(magic_credential))
-                    if magic_credential is None:
-                        magic_credential = request.form.get('magic_credential')
-                    print('from magic_credential: magic_credential is ' + str(magic_credential))
+        # print(request.headers.get('X-Auth-TOken'))
+        # did_token = parse_authorization_header_value(
+        #     request.headers.get('Authorization'),
+        # )
+        # print('--- Magic''s way: ' + str(did_token))
 
-                # Validate the did_token
+        test_mode = os.getenv('TEST_MODE')
+        print("""session: {}""".format(session))
+        magic_credential = session.get('magic_credential')  # Because even if we're in test-mode, we pass did_token to the render template.
+        print("""magic_credential from the session: {}""".format(magic_credential))
+        if test_mode is None or test_mode == 'FALSE':
+            try:
+                if not magic_credential:
+                    # The login authorization token from Magic is either didt or magic_credential. magic_credential
+                    # seems to be the parameter to look for today; didt worked in the past.
+                    # We're passing the auth token to the form, and back from the form to this route. There's probably a
+                    # better way to stay logged in, but this works well enough for now.
+                    # TODO Is the GET and POST code duplicated?
+                    if request.method == 'GET':
+                        print('GET')
+                        magic_credential = request.args.get('didt')
+                        print('from didt: did_token is ' + str(magic_credential))
+                        if magic_credential is None:
+                            magic_credential = request.args.get('magic_credential')
+                            print('from magic_credential: magic_credential is ' + str(magic_credential))
+                    else:
+                        print('POST')
+                        magic_credential = request.form.get('didt')
+                        print('from didt: did_token is ' + str(magic_credential))
+                        if magic_credential is None:
+                            magic_credential = request.form.get('magic_credential')
+                            print('from magic_credential: magic_credential is ' + str(magic_credential))
+
+                # Validate the auth token
                 magic = Magic(api_secret_key=__get_magic_secret_key())
                 magic.Token.validate(magic_credential)
+                session['magic_credential'] = magic_credential
                 print('--- did_token is valid ---')
 
                 # Sample code: The Magic docs suggest using issuer or public_address as the key for storing and
