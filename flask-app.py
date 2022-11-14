@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, render_template, request
 
 from app.authentication import magic_credential_required, with_magic_publishable_api_key
@@ -5,10 +7,7 @@ from app.pianopractice import PianoPractice
 from app.storage import Storage
 
 app = Flask(__name__)
-
-# TODO Make this secret (in an environment variable), or completely random at run-time
-# https://stackoverflow.com/questions/51436382/runtimeerror-the-session-is-unavailable-because-no-secret-key-was-set-set-the
-app.secret_key = b'_5#y2LF4Q38z\n\xec]/'
+app.secret_key = os.getenv('SESSION_SECRET_KEY')
 
 
 @app.route('/', methods=['GET'])
