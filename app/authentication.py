@@ -39,21 +39,11 @@ def magic_credential_required(func):
                     # seems to be the parameter to look for today; didt worked in the past.
                     # We're passing the auth token to the form, and back from the form to this route. There's probably a
                     # better way to stay logged in, but this works well enough for now.
-                    # TODO Is the GET and POST code duplicated?
-                    if request.method == 'GET':
-                        print('GET')
-                        magic_credential = request.args.get('didt')
-                        print('from didt: did_token is ' + str(magic_credential))
-                        if magic_credential is None:
-                            magic_credential = request.args.get('magic_credential')
-                            print('from magic_credential: magic_credential is ' + str(magic_credential))
-                    else:
-                        print('POST')
-                        magic_credential = request.form.get('didt')
-                        print('from didt: did_token is ' + str(magic_credential))
-                        if magic_credential is None:
-                            magic_credential = request.form.get('magic_credential')
-                            print('from magic_credential: magic_credential is ' + str(magic_credential))
+                    magic_credential = request.args.get('didt')
+                    print('from didt: did_token is ' + str(magic_credential))
+                    if magic_credential is None:
+                        magic_credential = request.args.get('magic_credential')
+                        print('from magic_credential: magic_credential is ' + str(magic_credential))
 
                 # Validate the auth token
                 magic = Magic(api_secret_key=__get_magic_secret_key())
