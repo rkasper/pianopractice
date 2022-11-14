@@ -74,7 +74,7 @@ def magic_credential_required(func):
                 # email = magic_response.data['email']
                 # print('callback: email: ' + email)
 
-                return func(magic_credential)
+                return func()
             except Exception as e:
                 # Uncomment the following print statement to help debug authentication problems. Otherwise leave it
                 # commented-out so test results are easy to read.
@@ -85,6 +85,6 @@ def magic_credential_required(func):
                 print(e)
                 return redirect(url_for("login"))
         else:
-            return func(magic_credential)
+            return func()
 
     return inject_did_token

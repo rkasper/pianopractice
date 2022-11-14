@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # TODO Make this secret (in an environment variable), or completely random at run-time
 # https://stackoverflow.com/questions/51436382/runtimeerror-the-session-is-unavailable-because-no-secret-key-was-set-set-the
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.secret_key = b'_5#y2L"F4Q38z\n\xec]/'
 
 
 @app.route('/', methods=['GET'])
@@ -34,7 +34,7 @@ def login(magic_publishable_api_key):
 
 @app.route('/admin', methods=['GET', 'POST'])
 @magic_credential_required
-def admin(magic_credential):
+def admin():
     print('admin')
     if request.method == 'POST':  # The web form supplied the data. Store the new data.
         scales = str(request.form.get(Storage.STORAGE_KEY_SCALES))
@@ -50,7 +50,6 @@ def admin(magic_credential):
         blues = Storage.get_blues_as_string()
 
     return render_template("admin.html",
-                           magic_credential=magic_credential,
                            scales=scales,
                            hanon=hanon,
                            blues=blues)
