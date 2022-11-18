@@ -5,6 +5,9 @@ from flask import request, redirect, url_for, session
 from magic_admin import Magic
 
 
+__AUTH_CREDENTIAL_SESSION_KEY = 'magic_credential'
+
+
 def __get_magic_secret_key():
     return os.environ.get('MAGIC_SECRET_KEY')
 
@@ -27,22 +30,20 @@ def magic_credential_required(func):
         print("""magic_credential from the session: {}""".format(magic_credential))
         if test_mode is None or test_mode == 'FALSE':
             try:
-                if not magic_credential:
-                    # The login authorization token from Magic is either didt or magic_credential. magic_credential
-                    # seems to be the parameter to look for today; didt worked in the past.
-                    # We're passing the auth token to the form, and back from the form to this route. There's probably a
-                    # better way to stay logged in, but this works well enough for now.
-                    magic_credential = request.args.get('didt')
-                    print('from didt: did_token is ' + str(magic_credential))
-                    if magic_credential is None:
-                        magic_credential = request.args.get('magic_credential')
-                        print('from magic_credential: magic_credential is ' + str(magic_credential))
+                magic_credential = request.args.get('didt')
+                print("""from didt: magic_credential is {}""".format(magic_credential))
+                if magic_credential is None:
+                    magic_credential = request.args.get('magic_credential')
+                    print("""from magic_credential: magic_credential is {}""".format(magic_credential))
+                    if not magic_credential:
+                        magic_credential = session.get(__AUTH_CREDENTIAL_SESSION_KEY)
+                        print("""from session: magic_credential is {}""".format(magic_credential))
 
                 # Validate the auth token
                 magic = Magic(api_secret_key=__get_magic_secret_key())
                 magic.Token.validate(magic_credential)
-                session['magic_credential'] = magic_credential
-                print('--- did_token is valid ---')
+                print('--- magic_credential is valid ---')
+                session[__AUTH_CREDENTIAL_SESSION_KEY] = magic_credential
 
                 # Sample code: The Magic docs suggest using issuer or public_address as the key for storing and
                 # retrieving user data in my app. In this app, we might store/retrieve a user-specific list of piano
@@ -59,13 +60,9 @@ def magic_credential_required(func):
 
                 return func()
             except Exception as e:
-                # Uncomment the following print statement to help debug authentication problems. Otherwise leave it
-                # commented-out so test results are easy to read.
-                # print('did_token_required: authorization failed: ' + format(e))
-                # TODO Consider changing this return statement - it depends on Flask running, which gives us a
-                # dependency we don't necessarily want. It's not so bad, because we only invoke authentication within
-                # Flask, but it makes it harder to test, if nothing else.
                 print(e)
+                if session.get(__AUTH_CREDENTIAL_SESSION_KEY):
+                    session.pop(__AUTH_CREDENTIAL_SESSION_KEY)
                 return redirect(url_for("login"))
         else:
             return func()
