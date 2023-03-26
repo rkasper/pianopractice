@@ -5,10 +5,16 @@ Simply answers these important questions:
 - What exercises should I practice right now?
 - In what sequence of keys should I practice them?
 
+## Dev & test notes
+- To run unit tests: 
+
+`$ venv/bin/python pianopractice/test/tests.py`
+
 ## Environment variables
-- `CELLAR_ADDON_HOST=some.host.name`: Specifies the hostname of our S3 external storage. In production, Clever Cloud injects this for us automatically.
-- `CELLAR_ADDON_KEY_ID=RandomLookingString`: Specifies the Clever Cloud addon key ID for Cellar, Clever Cloud's S3 clone. In production, Clever Cloud injects this for us automatically.
-- `CELLAR_ADDON_KEY_SECRET=RandomLookingString`: Specifies the Clever Cloud addon key secret for Cellar, Clever Cloud's S3 clone. In production, Clever Cloud injects this for us automatically.
+We use a number of environment variables to configure the server. It's OK to stare secrets in environments variables - just make sure you don't commit any of them to the repository.
+- `CELLAR_ADDON_HOST=some.host.name`: Specifies the hostname of our S3 external storage. In production, DigitalOcean injects this for us automatically.
+- `CELLAR_ADDON_KEY_ID=RandomLookingString`: Specifies our S3 key. In production, DigitalOcean injects this for us automatically.
+- `CELLAR_ADDON_KEY_SECRET=RandomLookingString`: Specifies our S3 secret key. In production, DigitalOcean injects this for us automatically.
 - `MAGIC_PUBLISHABLE_API_KEY=pk_live_RandomLookingString`: Specifies the publishable API key for Magic, our authentication provider
 - `MAGIC_SECRET_KEY=sk_live_RandomLookingString`: Specifies the secret key for Magic, our authentication provider
 - `MOCK_DB=true`: If this environment variable exists, use a fake in-memory database. *Do not set in production.*
@@ -19,15 +25,10 @@ Simply answers these important questions:
 - For that to work, you'll have to create a `requirements.txt` file full of package dependencies. To create
 `requirements.txt`:
 
-`# pip freeze > requirements.txt`
+`$ pip freeze > requirements.txt`
 
-- And you'll have to set an environment variable to tell clever-cloud.com where to find the Flask app. In our case, it
-will look like this:
+To run the production server:
 
-`CC_PYTHON_MODULE="flask-app:app"`
-
-- And we like to run tests in the deployment environment. In clever-cloud.com, we do this to run tests:
-
-`CC_POST_BUILD_HOOK="python tests.py"`
+`$ gunicorn --worker-tmp-dir /dev/shm --config gunicorn_config.py flask-app:app`
 
 That is all. Enjoy!

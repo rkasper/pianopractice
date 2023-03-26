@@ -2,9 +2,9 @@ import os
 
 from flask import Flask, render_template, request
 
-from app.authentication import magic_credential_required, with_magic_publishable_api_key
-from app.pianopractice import PianoPractice
-from app.storage import Storage
+from pianopractice.authentication import magic_credential_required, with_magic_publishable_api_key
+from pianopractice.pianopractice import PianoPractice
+from pianopractice.storage import Storage
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SESSION_SECRET_KEY')

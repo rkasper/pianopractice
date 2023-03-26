@@ -1,6 +1,6 @@
 import unittest
 
-from app.authentication import with_magic_publishable_api_key, magic_credential_required
+from pianopractice.authentication import with_magic_publishable_api_key, magic_credential_required
 
 
 @with_magic_publishable_api_key

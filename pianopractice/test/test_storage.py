@@ -2,7 +2,7 @@ import json
 import unittest
 from os import environ
 
-from app.storage import Storage
+from pianopractice.storage import Storage
 from shared_test_code import ignore_warnings
 
 

@@ -2,7 +2,7 @@ import unittest
 
 import validators as validators
 
-from app.pianopractice import PianoPractice
+from pianopractice.pianopractice import PianoPractice
 from shared_test_code import ignore_warnings
 
 
